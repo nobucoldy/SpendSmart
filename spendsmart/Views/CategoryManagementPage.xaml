@@ -1,19 +1,98 @@
 <UserControl x:Class="spendsmart.Views.CategoryManagementPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Margin="24">
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="Categories"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="#111827"
-                       HorizontalAlignment="Center" />
-            <TextBlock Text="Category management will be implemented in Phase 5."
-                       Margin="0,10,0,0"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       FontSize="15"
-                       Foreground="#6B7280" />
-        </StackPanel>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="96" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="20,8,20,0">
+            <TextBlock Text="22:02" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" />
+            <TextBlock Text="Danh mục" FontSize="24" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+            <TextBlock Text="＋" FontSize="34" Foreground="#159CE4" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        </Grid>
+
+        <Border Grid.Row="1" Margin="24,14" Height="42" Background="#E8E8EA" CornerRadius="12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border Margin="2" Background="#159CE4" CornerRadius="10">
+                    <TextBlock Text="Tiền chi" Foreground="White" FontSize="19" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock Grid.Column="1" Text="Tiền thu" Foreground="#159CE4" FontSize="19" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <UniformGrid Grid.Row="2" Columns="3" Margin="20,0,20,18">
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🍽" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Ăn uống" FontSize="18" FontWeight="SemiBold" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🛍" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Chi tiêu hằng..." FontSize="17" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="👕" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Quần áo" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="💊" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Y tế" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="📘" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Giáo dục" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🚌" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Đi lại" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🏠" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Tiền nhà" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="⛽" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Xăng dầu" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🛒" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="Lặt vặt" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <Button Grid.Row="3"
+                Content="Thêm danh mục"
+                Margin="24,8,24,18"
+                Height="58"
+                Background="#159CE4"
+                Foreground="White"
+                FontSize="24"
+                FontWeight="Bold"
+                BorderThickness="0" />
     </Grid>
 </UserControl>
