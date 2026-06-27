@@ -70,9 +70,10 @@ public class RegisterViewModel : BaseViewModel
                 return;
             }
 
+            var currentWindow = GetActiveWindow();
             var mainWindow = new MainWindow();
             mainWindow.Show();
-            CloseActiveWindow();
+            currentWindow?.Close();
         }
         catch (Exception ex)
         {
@@ -82,16 +83,16 @@ public class RegisterViewModel : BaseViewModel
 
     private void OpenLogin()
     {
+        var currentWindow = GetActiveWindow();
         var loginWindow = new LoginWindow();
         loginWindow.Show();
-        CloseActiveWindow();
+        currentWindow?.Close();
     }
 
-    private static void CloseActiveWindow()
+    private static Window? GetActiveWindow()
     {
-        Application.Current.Windows
+        return Application.Current.Windows
             .OfType<Window>()
-            .FirstOrDefault(window => window.IsActive)
-            ?.Close();
+            .FirstOrDefault(window => window.IsActive);
     }
 }
