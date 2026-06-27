@@ -1,0 +1,19 @@
+<UserControl x:Class="spendsmart.Views.HistoryPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Transaction History"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#111827"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Monthly transaction history will be implemented in Phase 7."
+                       Margin="0,10,0,0"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#6B7280" />
+        </StackPanel>
+    </Grid>
+</UserControl>

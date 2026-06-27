@@ -1,0 +1,19 @@
+<UserControl x:Class="spendsmart.Views.MorePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="More"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#111827"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Profile, about, and logout actions will be implemented in Phase 9."
+                       Margin="0,10,0,0"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#6B7280" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+<UserControl x:Class="spendsmart.Views.ReportPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Monthly Reports"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#111827"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Monthly totals and charts will be implemented in Phase 8."
+                       Margin="0,10,0,0"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Foreground="#6B7280" />
+        </StackPanel>
+    </Grid>
+</UserControl>
