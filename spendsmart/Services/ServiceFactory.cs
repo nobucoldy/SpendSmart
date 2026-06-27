@@ -1,5 +1,7 @@
 namespace spendsmart.Services;
 
+using spendsmart.ViewModels;
+
 public static class ServiceFactory
 {
     public static ApplicationState ApplicationState { get; } = new();
@@ -22,5 +24,10 @@ public static class ServiceFactory
     public static ReportService CreateReportService()
     {
         return new ReportService(CreateTransactionService());
+    }
+
+    public static MoreViewModel CreateMoreViewModel()
+    {
+        return new MoreViewModel(CreateAuthService(), ApplicationState);
     }
 }
