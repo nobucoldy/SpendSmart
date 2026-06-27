@@ -1,98 +1,372 @@
 <UserControl x:Class="spendsmart.Views.CategoryManagementPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="96" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <Style x:Key="SegmentButtonStyle" TargetType="RadioButton">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#159CE4" />
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Root"
+                                Margin="2"
+                                Background="Transparent"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#159CE4" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:02" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" />
-            <TextBlock Text="Danh mục" FontSize="24" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-            <TextBlock Text="＋" FontSize="34" Foreground="#159CE4" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <Style x:Key="IconPickerItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Root"
+                                Height="56"
+                                Background="White"
+                                BorderBrush="#DDDDDD"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#B8B8B8" />
+                                <Setter TargetName="Root" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ColorPickerItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Outer"
+                                Height="45"
+                                Background="Transparent"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                            <Border Margin="2"
+                                    Background="{Binding}"
+                                    CornerRadius="4" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Outer" Property="BorderBrush" Value="#555555" />
+                                <Setter TargetName="Outer" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        <Grid Visibility="{Binding ListVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="88" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="20,8,20,0">
+                <TextBlock Text="08:46"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           VerticalAlignment="Top" />
+                <TextBlock Text="Danh mục"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#111111"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Bottom" />
+                <Button Content="+"
+                        Command="{Binding OpenCreateCommand}"
+                        Width="44"
+                        Height="44"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="#0A84E9"
+                        FontSize="34"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom" />
+            </Grid>
+
+            <StackPanel Grid.Row="1">
+                <Border Margin="24,14,24,10"
+                        Height="42"
+                        Background="#E8E8EA"
+                        CornerRadius="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Content="Tiền chi"
+                                     IsChecked="{Binding IsExpenseSelected, Mode=OneWay}"
+                                     Command="{Binding SelectExpenseCommand}"
+                                     Style="{StaticResource SegmentButtonStyle}" />
+                        <RadioButton Grid.Column="1"
+                                     Content="Tiền thu"
+                                     IsChecked="{Binding IsIncomeSelected, Mode=OneWay}"
+                                     Command="{Binding SelectIncomeCommand}"
+                                     Style="{StaticResource SegmentButtonStyle}" />
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="{Binding StatusMessage}"
+                           MinHeight="24"
+                           Margin="24,0,24,4"
+                           TextWrapping="Wrap"
+                           Foreground="#DC2626" />
+            </StackPanel>
+
+            <ListBox Grid.Row="2"
+                     ItemsSource="{Binding Categories}"
+                     SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                     BorderThickness="0"
+                     Background="White"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Margin="20,0,20,8">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="Root"
+                                            BorderBrush="#DADADA"
+                                            BorderThickness="1"
+                                            CornerRadius="6"
+                                            Background="White">
+                                        <ContentPresenter />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Root" Property="BorderBrush" Value="#159CE4" />
+                                            <Setter TargetName="Root" Property="BorderThickness" Value="2" />
+                                            <Setter TargetName="Root" Property="Background" Value="#F1FAFF" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="96">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding IconSymbol}"
+                                           FontSize="32"
+                                           Foreground="{Binding Color}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Name}"
+                                           Margin="4,4,4,0"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Foreground="#555"
+                                           TextAlignment="Center"
+                                           TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
-        <Border Grid.Row="1" Margin="24,14" Height="42" Background="#E8E8EA" CornerRadius="12">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Border Margin="2" Background="#159CE4" CornerRadius="10">
-                    <TextBlock Text="Tiền chi" Foreground="White" FontSize="19" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid Visibility="{Binding FormVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="96" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="20,8,20,0">
+                <Border Width="82"
+                        Height="34"
+                        Background="#0A84E9"
+                        CornerRadius="17"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                    <TextBlock Text="08:46"
+                               Foreground="White"
+                               FontSize="20"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
                 </Border>
-                <TextBlock Grid.Column="1" Text="Tiền thu" Foreground="#159CE4" FontSize="19" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Content="‹"
+                        Command="{Binding BackCommand}"
+                        Width="44"
+                        Height="44"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="#0A84E9"
+                        FontSize="44"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom" />
+                <TextBlock Text="{Binding PageTitle}"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#111111"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Bottom" />
+                <Button Content="Xóa"
+                        Command="{Binding DeleteCommand}"
+                        Visibility="{Binding DeleteVisibility}"
+                        Width="58"
+                        Height="34"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="#F0533F"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom" />
             </Grid>
-        </Border>
 
-        <UniformGrid Grid.Row="2" Columns="3" Margin="20,0,20,18">
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🍽" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Ăn uống" FontSize="18" FontWeight="SemiBold" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🛍" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Chi tiêu hằng..." FontSize="17" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="👕" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Quần áo" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="💊" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Y tế" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="📘" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Giáo dục" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🚌" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Đi lại" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🏠" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Tiền nhà" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="⛽" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Xăng dầu" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-            <Border Margin="4" BorderBrush="#DADADA" BorderThickness="1" CornerRadius="6">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="🛒" FontSize="36" HorizontalAlignment="Center" />
-                    <TextBlock Text="Lặt vặt" FontSize="18" Foreground="#555" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Border>
-        </UniformGrid>
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          Background="White">
+                <StackPanel>
+                    <Border Height="44"
+                            BorderBrush="#DADADA"
+                            BorderThickness="0,1,0,1"
+                            Background="#FAFAFA" />
 
-        <Button Grid.Row="3"
-                Content="Thêm danh mục"
-                Margin="24,8,24,18"
-                Height="58"
-                Background="#159CE4"
-                Foreground="White"
-                FontSize="24"
-                FontWeight="Bold"
-                BorderThickness="0" />
+                    <Border BorderBrush="#DADADA"
+                            BorderThickness="0,0,0,1"
+                            Padding="20,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Tên"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Foreground="#111111"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding CategoryName, UpdateSourceTrigger=PropertyChanged}"
+                                     Height="42"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Padding="0"
+                                     VerticalContentAlignment="Center"
+                                     FontSize="22"
+                                     Foreground="#555555" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="Biểu tượng"
+                               Margin="20,24,20,16"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#111111" />
+
+                    <ListBox ItemsSource="{Binding IconOptions}"
+                             SelectedValue="{Binding IconName, Mode=TwoWay}"
+                             SelectedValuePath="IconName"
+                             BorderThickness="0"
+                             Background="White"
+                             Margin="18,0,18,22"
+                             ItemContainerStyle="{StaticResource IconPickerItemStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="4" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Symbol}"
+                                           FontSize="27"
+                                           Foreground="#555555"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Border BorderBrush="#E5E5E5"
+                            BorderThickness="0,1,0,0"
+                            Padding="0,22,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Màu sắc"
+                                       Margin="20,0,20,16"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Foreground="#111111" />
+
+                            <ListBox ItemsSource="{Binding ColorOptions}"
+                                     SelectedItem="{Binding Color, Mode=TwoWay}"
+                                     BorderThickness="0"
+                                     Background="White"
+                                     Margin="18,0,18,4"
+                                     ItemContainerStyle="{StaticResource ColorPickerItemStyle}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="5" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="{Binding StatusMessage}"
+                               MinHeight="26"
+                               Margin="24,4,24,0"
+                               TextWrapping="Wrap"
+                               Foreground="#DC2626" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Border Grid.Row="2"
+                    BorderBrush="#E5E5E5"
+                    BorderThickness="0,1,0,0"
+                    Padding="34,16,34,18"
+                    Background="White">
+                <Button Content="{Binding SaveButtonText}"
+                        Command="{Binding SaveCommand}"
+                        Height="56"
+                        Background="#76B4EA"
+                        Foreground="White"
+                        FontSize="24"
+                        FontWeight="Bold"
+                        BorderThickness="0" />
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

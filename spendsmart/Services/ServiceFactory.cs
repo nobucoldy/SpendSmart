@@ -8,4 +8,9 @@ public static class ServiceFactory
     {
         return new AuthService(ApplicationState);
     }
+
+    public static CategoryService CreateCategoryService()
+    {
+        return new CategoryService(ApplicationState);
+    }
 }
