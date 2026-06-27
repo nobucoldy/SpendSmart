@@ -18,4 +18,9 @@ public static class ServiceFactory
     {
         return new TransactionService(ApplicationState);
     }
+
+    public static ReportService CreateReportService()
+    {
+        return new ReportService(CreateTransactionService());
+    }
 }
