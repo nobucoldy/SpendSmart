@@ -10,102 +10,183 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:01" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" />
-            <TextBlock Text="Lịch" FontSize="24" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-            <TextBlock Text="⌕" FontSize="38" Foreground="#419CDF" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+            <TextBlock Text="22:01"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       VerticalAlignment="Top" />
+            <TextBlock Text="Lịch"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#555"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom" />
+            <TextBlock Text="⌕"
+                       FontSize="38"
+                       Foreground="#419CDF"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom" />
         </Grid>
 
-        <Border Grid.Row="1" BorderBrush="#DADADA" BorderThickness="0,1,0,0" Padding="18,12">
+        <Border Grid.Row="1"
+                BorderBrush="#DADADA"
+                BorderThickness="0,1,0,1"
+                Padding="18,12">
             <Grid>
-                <TextBlock Text="‹" FontSize="34" Foreground="#555" HorizontalAlignment="Left" />
-                <Border Width="398" Height="42" Background="#EEF8FE" CornerRadius="8" HorizontalAlignment="Center">
-                    <TextBlock Text="06/2026  (01/06–30/06)" FontSize="25" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Content="‹"
+                        Command="{Binding PreviousMonthCommand}"
+                        Width="42"
+                        Height="42"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="#555"
+                        FontSize="34"
+                        HorizontalAlignment="Left" />
+                <Border Width="398"
+                        Height="42"
+                        Background="#EEF8FE"
+                        CornerRadius="8"
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding MonthText}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#555"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
                 </Border>
-                <TextBlock Text="›" FontSize="34" Foreground="#555" HorizontalAlignment="Right" />
+                <Button Content="›"
+                        Command="{Binding NextMonthCommand}"
+                        Width="42"
+                        Height="42"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="#555"
+                        FontSize="34"
+                        HorizontalAlignment="Right" />
             </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Height="276">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="26" />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="2" Margin="18,14,18,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
-            <Border Grid.Row="0" Grid.ColumnSpan="7" Background="#E6E6E6" />
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="T2" FontSize="15" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="T3" FontSize="15" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="T4" FontSize="15" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="3" Text="T5" FontSize="15" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="T6" FontSize="15" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="5" Text="T7" FontSize="15" Foreground="#419CDF" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="CN" FontSize="15" Foreground="#F0533F" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-            <Border Grid.Row="3" Grid.Column="4" Background="#EEF8FE" />
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="1&#x0a;595,000" Foreground="#F05A3A" FontSize="14" Margin="7,6" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="2&#x0a;150,000" Foreground="#F05A3A" FontSize="14" Margin="7,6" />
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="3&#x0a;90,000" Foreground="#F05A3A" FontSize="14" Margin="7,6" />
-            <TextBlock Grid.Row="1" Grid.Column="3" Text="4&#x0a;80,000" Foreground="#F05A3A" FontSize="14" Margin="7,6" />
-            <TextBlock Grid.Row="1" Grid.Column="4" Text="5&#x0a;105,000" Foreground="#F05A3A" FontSize="14" Margin="7,6" />
-            <TextBlock Grid.Row="3" Grid.Column="4" Text="19&#x0a;150,000" Foreground="#555" FontSize="15" FontWeight="Bold" Margin="7,6" />
+            <StackPanel>
+                <TextBlock Text="Thu nhập"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="#555"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding TotalIncomeText}"
+                           FontSize="23"
+                           FontWeight="Bold"
+                           Foreground="#419CDF"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Chi tiêu"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="#555"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding TotalExpenseText}"
+                           FontSize="23"
+                           FontWeight="Bold"
+                           Foreground="#F05A3A"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Tổng"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="#555"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding BalanceText}"
+                           FontSize="23"
+                           FontWeight="Bold"
+                           Foreground="#F05A3A"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="3">
-            <Grid Margin="18,14,18,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <TextBlock Text="Thu nhập" FontSize="16" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" />
-                    <TextBlock Text="0đ" FontSize="24" FontWeight="Bold" Foreground="#419CDF" HorizontalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="Chi tiêu" FontSize="16" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" />
-                    <TextBlock Text="1,904,000đ" FontSize="24" FontWeight="Bold" Foreground="#F05A3A" HorizontalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Tổng" FontSize="16" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Center" />
-                    <TextBlock Text="-1,904,000đ" FontSize="24" FontWeight="Bold" Foreground="#F05A3A" HorizontalAlignment="Center" />
-                </StackPanel>
-            </Grid>
-            <Border Background="#F3F3F3" Padding="20,6">
-                <DockPanel>
-                    <TextBlock Text="19/06/2026 (Thứ 6)" FontSize="18" FontWeight="Bold" Foreground="#555" />
-                    <TextBlock Text="-150,000đ" FontSize="18" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Right" />
-                </DockPanel>
-            </Border>
-            <Border BorderBrush="#DADADA" BorderThickness="0,0,0,1" Padding="18,12">
-                <DockPanel>
-                    <TextBlock Text="🛒  Lặt vặt" FontSize="24" FontWeight="Bold" Foreground="#555" />
-                    <TextBlock Text="150,000đ  ›" FontSize="24" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Right" />
-                </DockPanel>
-            </Border>
-            <Border Background="#F3F3F3" Padding="20,6">
-                <DockPanel>
-                    <TextBlock Text="18/06/2026 (Thứ 5)" FontSize="18" FontWeight="Bold" Foreground="#555" />
-                    <TextBlock Text="-173,000đ" FontSize="18" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Right" />
-                </DockPanel>
-            </Border>
-            <Border BorderBrush="#DADADA" BorderThickness="0,0,0,1" Padding="18,12">
-                <DockPanel>
-                    <TextBlock Text="🛒  Lặt vặt" FontSize="24" FontWeight="Bold" Foreground="#555" />
-                    <TextBlock Text="98,000đ  ›" FontSize="24" FontWeight="Bold" Foreground="#555" HorizontalAlignment="Right" />
-                </DockPanel>
-            </Border>
-        </StackPanel>
+        <Grid Grid.Row="3">
+            <TextBlock Text="{Binding EmptyMessage}"
+                       Margin="24,40,24,0"
+                       TextAlignment="Center"
+                       FontSize="18"
+                       Foreground="#999" />
+
+            <ListBox ItemsSource="{Binding Transactions}"
+                     BorderThickness="0"
+                     Background="White"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Focusable" Value="False" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#DADADA"
+                                BorderThickness="0,0,0,1"
+                                Padding="18,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="54" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding CategoryIcon}"
+                                           FontSize="28"
+                                           Foreground="{Binding CategoryColor}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding CategoryName}"
+                                               FontSize="23"
+                                               FontWeight="Bold"
+                                               Foreground="#555"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding DateText}"
+                                               Margin="0,2,0,0"
+                                               FontSize="14"
+                                               Foreground="#777" />
+                                    <TextBlock Text="{Binding Note}"
+                                               Margin="0,2,0,0"
+                                               FontSize="14"
+                                               Foreground="#999"
+                                               TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding AmountText}"
+                                               FontSize="22"
+                                               FontWeight="Bold"
+                                               Foreground="{Binding AmountColor}"
+                                               HorizontalAlignment="Right" />
+                                    <TextBlock Text="{Binding TypeText}"
+                                               FontSize="13"
+                                               Foreground="#999"
+                                               HorizontalAlignment="Right" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

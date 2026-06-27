@@ -24,6 +24,19 @@ public class CategoryService
         using var dbContext = new AppDbContext();
         var userId = applicationState.CurrentUser!.UserId;
 
+        var categories = dbContext.Categories
+            .AsNoTracking()
+            .Where(category => category.UserId == userId && category.Type == type)
+            .OrderBy(category => category.Name)
+            .ToList();
+
+        if (categories.Count > 0)
+        {
+            return categories;
+        }
+
+        SeedDefaultCategoriesForType(dbContext, userId, type);
+
         return dbContext.Categories
             .AsNoTracking()
             .Where(category => category.UserId == userId && category.Type == type)
@@ -224,5 +237,56 @@ public class CategoryService
         }
 
         return null;
+    }
+
+    private static void SeedDefaultCategoriesForType(AppDbContext dbContext, int userId, string type)
+    {
+        var defaults = type == TransactionTypes.Income
+            ? CreateDefaultIncomeCategories(userId)
+            : CreateDefaultExpenseCategories(userId);
+
+        foreach (var category in defaults)
+        {
+            var exists = dbContext.Categories.Any(existing =>
+                existing.UserId == userId
+                && existing.Type == category.Type
+                && existing.Name == category.Name);
+
+            if (!exists)
+            {
+                dbContext.Categories.Add(category);
+            }
+        }
+
+        dbContext.SaveChanges();
+    }
+
+    private static List<Category> CreateDefaultExpenseCategories(int userId)
+    {
+        return new List<Category>
+        {
+            new() { UserId = userId, Name = "Food", Type = TransactionTypes.Expense, IconName = "Food", Color = "#FF7043" },
+            new() { UserId = userId, Name = "Daily Expenses", Type = TransactionTypes.Expense, IconName = "ShoppingBag", Color = "#42A5F5" },
+            new() { UserId = userId, Name = "Clothes", Type = TransactionTypes.Expense, IconName = "Shirt", Color = "#AB47BC" },
+            new() { UserId = userId, Name = "Healthcare", Type = TransactionTypes.Expense, IconName = "HeartPulse", Color = "#EF5350" },
+            new() { UserId = userId, Name = "Education", Type = TransactionTypes.Expense, IconName = "BookOpen", Color = "#5C6BC0" },
+            new() { UserId = userId, Name = "Electricity", Type = TransactionTypes.Expense, IconName = "Zap", Color = "#FFA726" },
+            new() { UserId = userId, Name = "Transportation", Type = TransactionTypes.Expense, IconName = "Bus", Color = "#26A69A" },
+            new() { UserId = userId, Name = "Rent", Type = TransactionTypes.Expense, IconName = "Home", Color = "#8D6E63" },
+            new() { UserId = userId, Name = "Fuel", Type = TransactionTypes.Expense, IconName = "Fuel", Color = "#78909C" },
+            new() { UserId = userId, Name = "Miscellaneous", Type = TransactionTypes.Expense, IconName = "MoreHorizontal", Color = "#66BB6A" }
+        };
+    }
+
+    private static List<Category> CreateDefaultIncomeCategories(int userId)
+    {
+        return new List<Category>
+        {
+            new() { UserId = userId, Name = "Salary", Type = TransactionTypes.Income, IconName = "Wallet", Color = "#26A69A" },
+            new() { UserId = userId, Name = "Bonus", Type = TransactionTypes.Income, IconName = "Gift", Color = "#7E57C2" },
+            new() { UserId = userId, Name = "Business", Type = TransactionTypes.Income, IconName = "Briefcase", Color = "#5C6BC0" },
+            new() { UserId = userId, Name = "Investment", Type = TransactionTypes.Income, IconName = "TrendingUp", Color = "#FFCA28" },
+            new() { UserId = userId, Name = "Other Income", Type = TransactionTypes.Income, IconName = "CircleDollar", Color = "#66BB6A" }
+        };
     }
 }

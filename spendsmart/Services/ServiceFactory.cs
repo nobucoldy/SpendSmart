@@ -13,4 +13,9 @@ public static class ServiceFactory
     {
         return new CategoryService(ApplicationState);
     }
+
+    public static TransactionService CreateTransactionService()
+    {
+        return new TransactionService(ApplicationState);
+    }
 }
