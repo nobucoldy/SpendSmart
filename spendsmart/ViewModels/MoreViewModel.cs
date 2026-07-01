@@ -16,7 +16,6 @@ public class MoreViewModel : BaseViewModel
         this.applicationState = applicationState;
         LogoutCommand = new RelayCommand(Logout);
         ShowAboutCommand = new RelayCommand(ShowAbout);
-        ShowCategoryHintCommand = new RelayCommand(ShowCategoryHint);
     }
 
     public string FullName => applicationState.CurrentUser?.FullName ?? "Guest";
@@ -26,8 +25,6 @@ public class MoreViewModel : BaseViewModel
     public ICommand LogoutCommand { get; }
 
     public ICommand ShowAboutCommand { get; }
-
-    public ICommand ShowCategoryHintCommand { get; }
 
     private void Logout()
     {
@@ -55,19 +52,13 @@ public class MoreViewModel : BaseViewModel
 
     private static void ShowAbout()
     {
-        MessageBox.Show(
-            "SpendSmart is a personal expense management application for tracking income, expenses, categories, history, and monthly reports.",
-            "About SpendSmart",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
-    }
+        var aboutWindow = new AboutWindow
+        {
+            Owner = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive)
+        };
 
-    private static void ShowCategoryHint()
-    {
-        MessageBox.Show(
-            "Use the Danh mục tab in the bottom navigation to manage income and expense categories.",
-            "Category Management",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        aboutWindow.ShowDialog();
     }
 }

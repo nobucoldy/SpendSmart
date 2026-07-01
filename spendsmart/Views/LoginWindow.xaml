@@ -3,79 +3,129 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SpendSmart - Login"
         Width="480"
-        Height="850"
+        Height="750"
+        MinWidth="480"
+        MinHeight="750"
+        MaxWidth="480"
+        MaxHeight="750"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Background="#F6F8FB">
-    <Grid Margin="32">
+        Background="White">
+    <Window.Resources>
+        <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#555555" />
+            <Setter Property="Background" Value="#EEF8FE" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style x:Key="InputPasswordStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#555555" />
+            <Setter Property="Background" Value="#EEF8FE" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="42" />
+            <Setter Property="Background" Value="#159CE4" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#0F8FD4" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#0B7FBE" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#159CE4" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1"
-                Padding="28"
-                Background="White"
-                CornerRadius="18">
-            <StackPanel>
-                <TextBlock Text="SpendSmart"
-                           FontSize="26"
-                           FontWeight="Bold"
-                           Foreground="#1F2937"
-                           HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="1"
+                    Width="330"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="SpendSmart"
+                       FontSize="26"
+                       FontWeight="Black"
+                       Foreground="#333333"
+                       HorizontalAlignment="Center" />
+            <TextBlock Text="Đăng nhập để quản lý chi tiêu"
+                       Margin="0,6,0,26"
+                       FontSize="13"
+                       Foreground="#777777"
+                       HorizontalAlignment="Center" />
 
-                <TextBlock Text="Login to manage your expenses"
-                           Margin="0,8,0,32"
-                           FontSize="15"
-                           Foreground="#6B7280"
-                           HorizontalAlignment="Center" />
+            <TextBlock Text="Email"
+                       FontSize="13"
+                       FontWeight="SemiBold"
+                       Foreground="#555555"
+                       Margin="2,0,0,6" />
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxStyle}"
+                     Margin="0,0,0,12" />
 
-                <TextBlock Text="Email"
-                           FontWeight="SemiBold"
-                           Foreground="#374151" />
-                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0,8,0,18"
-                         Height="44"
-                         Padding="12,0"
-                         VerticalContentAlignment="Center"
-                         FontSize="15" />
+            <TextBlock Text="Mật khẩu"
+                       FontSize="13"
+                       FontWeight="SemiBold"
+                       Foreground="#555555"
+                       Margin="2,0,0,6" />
+            <PasswordBox x:Name="PasswordInput"
+                         Style="{StaticResource InputPasswordStyle}"
+                         Margin="0,0,0,10"
+                         PasswordChanged="PasswordInput_PasswordChanged" />
 
-                <TextBlock Text="Password"
-                           FontWeight="SemiBold"
-                           Foreground="#374151" />
-                <PasswordBox x:Name="PasswordInput"
-                             Margin="0,8,0,18"
-                             Height="44"
-                             Padding="12,0"
-                             VerticalContentAlignment="Center"
-                             FontSize="15"
-                             PasswordChanged="PasswordInput_PasswordChanged" />
+            <TextBlock Text="{Binding ErrorMessage}"
+                       MinHeight="22"
+                       Margin="0,0,0,10"
+                       TextWrapping="Wrap"
+                       FontSize="12"
+                       Foreground="#DC2626" />
 
-                <TextBlock Text="{Binding ErrorMessage}"
-                           MinHeight="24"
-                           Margin="0,0,0,12"
-                           TextWrapping="Wrap"
-                           Foreground="#DC2626" />
+            <Button Content="Đăng nhập"
+                    Command="{Binding LoginCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}" />
 
-                <Button Content="Login"
-                        Command="{Binding LoginCommand}"
-                        Height="46"
-                        Background="#2563EB"
-                        Foreground="White"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        BorderThickness="0" />
-
-                <Button Content="Create new account"
-                        Command="{Binding OpenRegisterCommand}"
-                        Margin="0,14,0,0"
-                        Height="42"
-                        Background="Transparent"
-                        Foreground="#2563EB"
-                        FontWeight="SemiBold"
-                        BorderThickness="0" />
-            </StackPanel>
-        </Border>
+            <Button Content="Tạo tài khoản mới"
+                    Command="{Binding OpenRegisterCommand}"
+                    Margin="0,10,0,0"
+                    Style="{StaticResource LinkButtonStyle}" />
+        </StackPanel>
     </Grid>
 </Window>

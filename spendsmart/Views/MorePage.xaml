@@ -37,8 +37,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,0,20,0">
-                       <TextBlock Text="Khác"
+        <Grid Grid.Row="0" Margin="20,0">
+            <TextBlock Text="Khác"
                        FontSize="17"
                        FontWeight="Bold"
                        Foreground="#555"
@@ -46,7 +46,7 @@
                        VerticalAlignment="Center" />
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="0,0,0,0">
+        <StackPanel Grid.Row="1">
             <Border BorderBrush="#DADADA"
                     BorderThickness="0,1,0,1"
                     Padding="20,10">
@@ -78,24 +78,10 @@
                 </Grid>
             </Border>
 
-            <Button Command="{Binding ShowCategoryHintCommand}"
-                    Style="{StaticResource MenuButtonStyle}">
-                <DockPanel>
-                    <TextBlock Text="□  Quản lý danh mục"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="#555" />
-                    <TextBlock Text="›"
-                               FontSize="20"
-                               Foreground="#AAA"
-                               HorizontalAlignment="Right" />
-                </DockPanel>
-            </Button>
-
             <Button Command="{Binding ShowAboutCommand}"
                     Style="{StaticResource MenuButtonStyle}">
                 <DockPanel>
-                    <TextBlock Text="ⓘ  Về ứng dụng"
+                    <TextBlock Text="ⓘ  About Team"
                                FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555" />
