@@ -20,11 +20,6 @@
                        Foreground="#555"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom" />
-            <TextBlock Text="⌕"
-                       FontSize="38"
-                       Foreground="#419CDF"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom" />
         </Grid>
 
         <Border Grid.Row="1"
@@ -32,35 +27,42 @@
                 BorderThickness="0,1,0,1"
                 Padding="18,12">
             <Grid>
-                <Button Content="‹"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Button Content="&lt;"
                         Command="{Binding PreviousMonthCommand}"
                         Width="42"
                         Height="42"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#555"
-                        FontSize="34"
+                        FontSize="28"
+                        FontWeight="Bold"
                         HorizontalAlignment="Left" />
-                <Border Width="398"
+                <Border Grid.Column="1"
                         Height="42"
                         Background="#EEF8FE"
-                        CornerRadius="8"
-                        HorizontalAlignment="Center">
+                        CornerRadius="8">
                     <TextBlock Text="{Binding MonthText}"
-                               FontSize="24"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#555"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                 </Border>
-                <Button Content="›"
+                <Button Grid.Column="2"
+                        Content="&gt;"
                         Command="{Binding NextMonthCommand}"
                         Width="42"
                         Height="42"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#555"
-                        FontSize="34"
+                        FontSize="28"
+                        FontWeight="Bold"
                         HorizontalAlignment="Right" />
             </Grid>
         </Border>

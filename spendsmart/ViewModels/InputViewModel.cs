@@ -27,7 +27,7 @@ public class InputViewModel : BaseViewModel
         SelectIncomeCommand = new RelayCommand(() => SelectType(TransactionTypes.Income));
         SaveCommand = new RelayCommand(SaveTransaction);
 
-        LoadCategories();
+        Refresh();
     }
 
     public ObservableCollection<CategoryItemViewModel> Categories { get; }
@@ -93,6 +93,11 @@ public class InputViewModel : BaseViewModel
     public ICommand SelectIncomeCommand { get; }
 
     public ICommand SaveCommand { get; }
+
+    public void Refresh()
+    {
+        LoadCategories();
+    }
 
     private void SelectType(string type)
     {

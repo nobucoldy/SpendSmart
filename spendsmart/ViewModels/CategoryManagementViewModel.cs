@@ -142,6 +142,11 @@ public class CategoryManagementViewModel : BaseViewModel
 
     public ICommand ClearFormCommand { get; }
 
+    public void Refresh()
+    {
+        LoadCategories();
+    }
+
     private void SelectType(string type)
     {
         selectedType = type;

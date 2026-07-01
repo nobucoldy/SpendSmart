@@ -34,8 +34,6 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="96" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -48,11 +46,6 @@
                        FontSize="32"
                        Foreground="#419CDF"
                        HorizontalAlignment="Left"
-                       VerticalAlignment="Bottom" />
-            <TextBlock Text="⌕"
-                       FontSize="38"
-                       Foreground="#419CDF"
-                       HorizontalAlignment="Right"
                        VerticalAlignment="Bottom" />
             <Border Width="250"
                     Height="38"
@@ -68,7 +61,7 @@
                     <Border Margin="2"
                             Background="#419CDF"
                             CornerRadius="10">
-                        <TextBlock Text="Hàng Tháng"
+                        <TextBlock Text="Hàng tháng"
                                    Foreground="White"
                                    FontSize="18"
                                    FontWeight="SemiBold"
@@ -76,7 +69,7 @@
                                    VerticalAlignment="Center" />
                     </Border>
                     <TextBlock Grid.Column="1"
-                               Text="Hàng Năm"
+                               Text="Hàng năm"
                                Foreground="#419CDF"
                                FontSize="18"
                                FontWeight="SemiBold"
@@ -86,193 +79,185 @@
             </Border>
         </Grid>
 
-        <StackPanel Grid.Row="1">
-            <Border BorderBrush="#DADADA"
-                    BorderThickness="0,1,0,0"
-                    Padding="18,12">
-                <Grid>
-                    <Button Content="‹"
-                            Command="{Binding PreviousMonthCommand}"
-                            Width="42"
-                            Height="42"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            Foreground="#555"
-                            FontSize="34"
-                            HorizontalAlignment="Left" />
-                    <Border Width="398"
-                            Height="42"
-                            Background="#EEF8FE"
-                            CornerRadius="8"
-                            HorizontalAlignment="Center">
-                        <TextBlock Text="{Binding MonthText}"
-                                   FontSize="24"
-                                   FontWeight="Bold"
-                                   Foreground="#555"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
-                    </Border>
-                    <Button Content="›"
-                            Command="{Binding NextMonthCommand}"
-                            Width="42"
-                            Height="42"
-                            BorderThickness="0"
-                            Background="Transparent"
-                            Foreground="#555"
-                            FontSize="34"
-                            HorizontalAlignment="Right" />
-                </Grid>
-            </Border>
-
-            <Grid Margin="24,12,24,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="14" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Border BorderBrush="#DDD"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Padding="10,8">
-                    <DockPanel>
-                        <TextBlock Text="Chi tiêu"
-                                   FontSize="16"
-                                   Foreground="#666" />
-                        <TextBlock Text="{Binding TotalExpenseText}"
-                                   FontSize="21"
-                                   FontWeight="Bold"
-                                   Foreground="#F26B5A"
-                                   HorizontalAlignment="Right" />
-                    </DockPanel>
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      CanContentScroll="False">
+            <StackPanel>
+                <Border BorderBrush="#DADADA"
+                        BorderThickness="0,1,0,0"
+                        Padding="18,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                        <Button Content="&lt;"
+                                Command="{Binding PreviousMonthCommand}"
+                                Width="42"
+                                Height="42"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Foreground="#555"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Left" />
+                        <Border Grid.Column="1"
+                                Height="42"
+                                Background="#EEF8FE"
+                                CornerRadius="8">
+                            <TextBlock Text="{Binding MonthText}"
+                                       FontSize="22"
+                                       FontWeight="Bold"
+                                       Foreground="#555"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                        <Button Grid.Column="2"
+                                Content="&gt;"
+                                Command="{Binding NextMonthCommand}"
+                                Width="42"
+                                Height="42"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                Foreground="#555"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Right" />
+                    </Grid>
                 </Border>
-                <Border Grid.Column="2"
+
+                <Grid Margin="24,12,24,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="#DDD"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="10,8">
+                        <DockPanel>
+                            <TextBlock Text="Chi tiêu"
+                                       FontSize="16"
+                                       Foreground="#666" />
+                            <TextBlock Text="{Binding TotalExpenseText}"
+                                       FontSize="21"
+                                       FontWeight="Bold"
+                                       Foreground="#F26B5A"
+                                       HorizontalAlignment="Right" />
+                        </DockPanel>
+                    </Border>
+                    <Border Grid.Column="2"
+                            BorderBrush="#DDD"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="10,8">
+                        <DockPanel>
+                            <TextBlock Text="Thu nhập"
+                                       FontSize="16"
+                                       Foreground="#666" />
+                            <TextBlock Text="{Binding TotalIncomeText}"
+                                       FontSize="21"
+                                       FontWeight="Bold"
+                                       Foreground="#419CDF"
+                                       HorizontalAlignment="Right" />
+                        </DockPanel>
+                    </Border>
+                </Grid>
+                <Border Margin="24,0,24,18"
                         BorderBrush="#DDD"
                         BorderThickness="1"
                         CornerRadius="6"
                         Padding="10,8">
                     <DockPanel>
-                        <TextBlock Text="Thu nhập"
+                        <TextBlock Text="Thu chi"
                                    FontSize="16"
                                    Foreground="#666" />
-                        <TextBlock Text="{Binding TotalIncomeText}"
-                                   FontSize="21"
+                        <TextBlock Text="{Binding BalanceText}"
+                                   FontSize="23"
                                    FontWeight="Bold"
-                                   Foreground="#419CDF"
+                                   Foreground="#555"
                                    HorizontalAlignment="Right" />
                     </DockPanel>
                 </Border>
-            </Grid>
-            <Border Margin="24,0,24,18"
-                    BorderBrush="#DDD"
-                    BorderThickness="1"
-                    CornerRadius="6"
-                    Padding="10,8">
-                <DockPanel>
-                    <TextBlock Text="Thu chi"
+
+                <Grid Margin="24,0,24,10" Height="38">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Content="Chi tiêu"
+                                 IsChecked="{Binding IsExpenseSelected, Mode=OneWay}"
+                                 Command="{Binding ShowExpenseCommand}"
+                                 Style="{StaticResource ReportTabStyle}" />
+                    <RadioButton Grid.Column="1"
+                                 Content="Thu nhập"
+                                 IsChecked="{Binding IsIncomeSelected, Mode=OneWay}"
+                                 Command="{Binding ShowIncomeCommand}"
+                                 Style="{StaticResource ReportTabStyle}" />
+                </Grid>
+
+                <Grid Width="260"
+                      Height="230"
+                      HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding EmptyMessage}"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
                                FontSize="16"
-                               Foreground="#666" />
-                    <TextBlock Text="{Binding BalanceText}"
-                               FontSize="23"
-                               FontWeight="Bold"
-                               Foreground="#555"
-                               HorizontalAlignment="Right" />
-                </DockPanel>
-            </Border>
-        </StackPanel>
+                               Foreground="#999"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
+                    <lvc:PieChart Series="{Binding ChartSeries}"
+                                  LegendPosition="Hidden"
+                                  TooltipPosition="Hidden"
+                                  InitialRotation="-90" />
+                </Grid>
 
-        <StackPanel Grid.Row="2">
-            <Grid Margin="24,0,24,10" Height="38">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <RadioButton Content="Chi tiêu"
-                             IsChecked="{Binding IsExpenseSelected, Mode=OneWay}"
-                             Command="{Binding ShowExpenseCommand}"
-                             Style="{StaticResource ReportTabStyle}" />
-                <RadioButton Grid.Column="1"
-                             Content="Thu nhập"
-                             IsChecked="{Binding IsIncomeSelected, Mode=OneWay}"
-                             Command="{Binding ShowIncomeCommand}"
-                             Style="{StaticResource ReportTabStyle}" />
-            </Grid>
-            <Grid Width="260"
-                  Height="230"
-                  HorizontalAlignment="Center">
-                <TextBlock Text="{Binding EmptyMessage}"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap"
-                           FontSize="16"
-                           Foreground="#999"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center" />
-                <lvc:PieChart Series="{Binding ChartSeries}"
-                              LegendPosition="Hidden"
-                              TooltipPosition="Hidden"
-                              InitialRotation="-90" />
-            </Grid>
-        </StackPanel>
-
-        <ListBox Grid.Row="3"
-                 ItemsSource="{Binding CategoryItems}"
-                 BorderThickness="0"
-                 Background="White"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="Focusable" Value="False" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="#DADADA"
-                            BorderThickness="0,1,0,0"
-                            Padding="18,12">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="54" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="128" />
-                                <ColumnDefinition Width="70" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Icon}"
-                                       FontSize="25"
-                                       Foreground="{Binding Color}"
-                                       VerticalAlignment="Center" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding CategoryName}"
-                                       FontSize="23"
-                                       FontWeight="Bold"
-                                       Foreground="#555"
-                                       VerticalAlignment="Center"
-                                       TextTrimming="CharacterEllipsis" />
-                            <TextBlock Grid.Column="2"
-                                       Text="{Binding TotalAmountText}"
-                                       FontSize="21"
-                                       FontWeight="Bold"
-                                       Foreground="#555"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center" />
-                            <TextBlock Grid.Column="3"
-                                       Text="{Binding PercentageText}"
-                                       FontSize="17"
-                                       Foreground="#666"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <ItemsControl ItemsSource="{Binding CategoryItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#DADADA"
+                                    BorderThickness="0,1,0,0"
+                                    Padding="18,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="54" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="128" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Icon}"
+                                               FontSize="25"
+                                               Foreground="{Binding Color}"
+                                               VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding CategoryName}"
+                                               FontSize="23"
+                                               FontWeight="Bold"
+                                               Foreground="#555"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding TotalAmountText}"
+                                               FontSize="21"
+                                               FontWeight="Bold"
+                                               Foreground="#555"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="3"
+                                               Text="{Binding PercentageText}"
+                                               FontSize="17"
+                                               Foreground="#666"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

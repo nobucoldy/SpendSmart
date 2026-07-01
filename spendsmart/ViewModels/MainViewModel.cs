@@ -61,7 +61,7 @@ public class MainViewModel : BaseViewModel
             return;
         }
 
-        CurrentPage = tabName switch
+        var nextPage = tabName switch
         {
             "Input" => inputPage,
             "History" => historyPage,
@@ -71,6 +71,27 @@ public class MainViewModel : BaseViewModel
             _ => CurrentPage
         };
 
+        RefreshPage(nextPage);
+        CurrentPage = nextPage;
         SelectedTab = tabName;
+    }
+
+    private static void RefreshPage(UserControl page)
+    {
+        switch (page.DataContext)
+        {
+            case InputViewModel inputViewModel:
+                inputViewModel.Refresh();
+                break;
+            case HistoryViewModel historyViewModel:
+                historyViewModel.Refresh();
+                break;
+            case ReportViewModel reportViewModel:
+                reportViewModel.Refresh();
+                break;
+            case CategoryManagementViewModel categoryManagementViewModel:
+                categoryManagementViewModel.Refresh();
+                break;
+        }
     }
 }
