@@ -20,7 +20,7 @@
                 CornerRadius="18">
             <StackPanel>
                 <TextBlock Text="Create Account"
-                           FontSize="30"
+                           FontSize="25"
                            FontWeight="Bold"
                            Foreground="#1F2937"
                            HorizontalAlignment="Center" />

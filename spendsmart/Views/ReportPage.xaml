@@ -7,7 +7,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#D8D8D8" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
@@ -15,7 +15,7 @@
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
                             <Border x:Name="Underline"
-                                    Height="3"
+                                    Height="2"
                                     Background="Transparent"
                                     VerticalAlignment="Bottom" />
                         </Grid>
@@ -33,26 +33,18 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="96" />
+            <RowDefinition Height="46" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:02"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       VerticalAlignment="Top" />
-            <TextBlock Text="▣"
-                       FontSize="32"
-                       Foreground="#419CDF"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Bottom" />
-            <Border Width="250"
-                    Height="38"
+        <Grid Grid.Row="0" Margin="20,4,20,0">
+                        
+            <Border Width="210"
+                    Height="32"
                     Background="#E8E8EA"
                     CornerRadius="12"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom">
+                    VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -63,7 +55,7 @@
                             CornerRadius="10">
                         <TextBlock Text="Hàng tháng"
                                    Foreground="White"
-                                   FontSize="18"
+                                   FontSize="14"
                                    FontWeight="SemiBold"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" />
@@ -71,7 +63,7 @@
                     <TextBlock Grid.Column="1"
                                Text="Hàng năm"
                                Foreground="#419CDF"
-                               FontSize="18"
+                               FontSize="14"
                                FontWeight="SemiBold"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
@@ -80,35 +72,35 @@
         </Grid>
 
         <ScrollViewer Grid.Row="1"
-                      VerticalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Hidden"
                       HorizontalScrollBarVisibility="Disabled"
                       CanContentScroll="False">
             <StackPanel>
                 <Border BorderBrush="#DADADA"
                         BorderThickness="0,1,0,0"
-                        Padding="18,12">
+                        Padding="16,5">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="32" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="32" />
                         </Grid.ColumnDefinitions>
                         <Button Content="&lt;"
                                 Command="{Binding PreviousMonthCommand}"
-                                Width="42"
-                                Height="42"
+                                Width="30"
+                                Height="30"
                                 BorderThickness="0"
                                 Background="Transparent"
                                 Foreground="#555"
-                                FontSize="28"
+                                FontSize="16"
                                 FontWeight="Bold"
                                 HorizontalAlignment="Left" />
                         <Border Grid.Column="1"
-                                Height="42"
+                                Height="30"
                                 Background="#EEF8FE"
                                 CornerRadius="8">
                             <TextBlock Text="{Binding MonthText}"
-                                       FontSize="22"
+                                       FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="#555"
                                        HorizontalAlignment="Center"
@@ -117,18 +109,18 @@
                         <Button Grid.Column="2"
                                 Content="&gt;"
                                 Command="{Binding NextMonthCommand}"
-                                Width="42"
-                                Height="42"
+                                Width="30"
+                                Height="30"
                                 BorderThickness="0"
                                 Background="Transparent"
                                 Foreground="#555"
-                                FontSize="28"
+                                FontSize="16"
                                 FontWeight="Bold"
                                 HorizontalAlignment="Right" />
                     </Grid>
                 </Border>
 
-                <Grid Margin="24,12,24,8">
+                <Grid Margin="16,8,16,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="14" />
@@ -137,13 +129,13 @@
                     <Border BorderBrush="#DDD"
                             BorderThickness="1"
                             CornerRadius="6"
-                            Padding="10,8">
+                            Padding="8,6">
                         <DockPanel>
                             <TextBlock Text="Chi tiêu"
-                                       FontSize="16"
+                                       FontSize="12"
                                        Foreground="#666" />
                             <TextBlock Text="{Binding TotalExpenseText}"
-                                       FontSize="21"
+                                       FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="#F26B5A"
                                        HorizontalAlignment="Right" />
@@ -153,37 +145,37 @@
                             BorderBrush="#DDD"
                             BorderThickness="1"
                             CornerRadius="6"
-                            Padding="10,8">
+                            Padding="8,6">
                         <DockPanel>
                             <TextBlock Text="Thu nhập"
-                                       FontSize="16"
+                                       FontSize="12"
                                        Foreground="#666" />
                             <TextBlock Text="{Binding TotalIncomeText}"
-                                       FontSize="21"
+                                       FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="#419CDF"
                                        HorizontalAlignment="Right" />
                         </DockPanel>
                     </Border>
                 </Grid>
-                <Border Margin="24,0,24,18"
+                <Border Margin="16,0,16,10"
                         BorderBrush="#DDD"
                         BorderThickness="1"
                         CornerRadius="6"
-                        Padding="10,8">
+                        Padding="8,6">
                     <DockPanel>
                         <TextBlock Text="Thu chi"
-                                   FontSize="16"
+                                   FontSize="12"
                                    Foreground="#666" />
                         <TextBlock Text="{Binding BalanceText}"
-                                   FontSize="23"
+                                   FontSize="15"
                                    FontWeight="Bold"
                                    Foreground="#555"
                                    HorizontalAlignment="Right" />
                     </DockPanel>
                 </Border>
 
-                <Grid Margin="24,0,24,10" Height="38">
+                <Grid Margin="24,0,24,6" Height="32">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -199,13 +191,13 @@
                                  Style="{StaticResource ReportTabStyle}" />
                 </Grid>
 
-                <Grid Width="260"
-                      Height="230"
+                <Grid Width="220"
+                      Height="180"
                       HorizontalAlignment="Center">
                     <TextBlock Text="{Binding EmptyMessage}"
                                TextAlignment="Center"
                                TextWrapping="Wrap"
-                               FontSize="16"
+                               FontSize="14"
                                Foreground="#999"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center" />
@@ -220,35 +212,35 @@
                         <DataTemplate>
                             <Border BorderBrush="#DADADA"
                                     BorderThickness="0,1,0,0"
-                                    Padding="18,12">
+                            Padding="14,8">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="54" />
+                                        <ColumnDefinition Width="42" />
                                         <ColumnDefinition />
-                                        <ColumnDefinition Width="128" />
-                                        <ColumnDefinition Width="70" />
+                                        <ColumnDefinition Width="104" />
+                                        <ColumnDefinition Width="58" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Icon}"
-                                               FontSize="25"
+                                               FontSize="17"
                                                Foreground="{Binding Color}"
                                                VerticalAlignment="Center" />
                                     <TextBlock Grid.Column="1"
                                                Text="{Binding CategoryName}"
-                                               FontSize="23"
+                                               FontSize="15"
                                                FontWeight="Bold"
                                                Foreground="#555"
                                                VerticalAlignment="Center"
                                                TextTrimming="CharacterEllipsis" />
                                     <TextBlock Grid.Column="2"
                                                Text="{Binding TotalAmountText}"
-                                               FontSize="21"
+                                               FontSize="14"
                                                FontWeight="Bold"
                                                Foreground="#555"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Center" />
                                     <TextBlock Grid.Column="3"
                                                Text="{Binding PercentageText}"
-                                               FontSize="17"
+                                               FontSize="12"
                                                Foreground="#666"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Center" />

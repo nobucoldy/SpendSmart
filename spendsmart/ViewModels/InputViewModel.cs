@@ -25,6 +25,8 @@ public class InputViewModel : BaseViewModel
         Categories = new ObservableCollection<CategoryItemViewModel>();
         SelectExpenseCommand = new RelayCommand(() => SelectType(TransactionTypes.Expense));
         SelectIncomeCommand = new RelayCommand(() => SelectType(TransactionTypes.Income));
+        PreviousDateCommand = new RelayCommand(() => ChangeDate(-1));
+        NextDateCommand = new RelayCommand(() => ChangeDate(1));
         SaveCommand = new RelayCommand(SaveTransaction);
 
         Refresh();
@@ -44,7 +46,9 @@ public class InputViewModel : BaseViewModel
         }
     }
 
-    public string SelectedDateText => SelectedDate?.ToString("dd/MM/yyyy (ddd)", CultureInfo.CurrentCulture) ?? string.Empty;
+    public string SelectedDateText => SelectedDate.HasValue
+        ? $"{SelectedDate.Value:dd/MM/yyyy} ({GetVietnameseDayName(SelectedDate.Value)})"
+        : string.Empty;
 
     public string Note
     {
@@ -92,6 +96,10 @@ public class InputViewModel : BaseViewModel
 
     public ICommand SelectIncomeCommand { get; }
 
+    public ICommand PreviousDateCommand { get; }
+
+    public ICommand NextDateCommand { get; }
+
     public ICommand SaveCommand { get; }
 
     public void Refresh()
@@ -107,6 +115,11 @@ public class InputViewModel : BaseViewModel
         OnPropertyChanged(nameof(AmountLabel));
         OnPropertyChanged(nameof(SaveButtonText));
         LoadCategories();
+    }
+
+    private void ChangeDate(int offset)
+    {
+        SelectedDate = (SelectedDate ?? DateTime.Today).AddDays(offset);
     }
 
     private void LoadCategories()
@@ -171,5 +184,20 @@ public class InputViewModel : BaseViewModel
         Note = string.Empty;
         SelectedDate = DateTime.Today;
         LoadCategories();
+    }
+
+    private static string GetVietnameseDayName(DateTime date)
+    {
+        return date.DayOfWeek switch
+        {
+            DayOfWeek.Monday => "Thứ hai",
+            DayOfWeek.Tuesday => "Thứ ba",
+            DayOfWeek.Wednesday => "Thứ tư",
+            DayOfWeek.Thursday => "Thứ năm",
+            DayOfWeek.Friday => "Thứ sáu",
+            DayOfWeek.Saturday => "Thứ bảy",
+            DayOfWeek.Sunday => "Chủ nhật",
+            _ => string.Empty
+        };
     }
 }

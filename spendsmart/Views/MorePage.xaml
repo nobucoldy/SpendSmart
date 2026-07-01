@@ -6,7 +6,7 @@
             <Setter Property="Background" Value="White" />
             <Setter Property="BorderBrush" Value="#DADADA" />
             <Setter Property="BorderThickness" Value="0,0,0,1" />
-            <Setter Property="Padding" Value="24,16" />
+            <Setter Property="Padding" Value="20,10" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
@@ -33,49 +33,45 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="96" />
+            <RowDefinition Height="46" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:02"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       VerticalAlignment="Top" />
-            <TextBlock Text="Khác"
-                       FontSize="24"
+        <Grid Grid.Row="0" Margin="20,0,20,0">
+                       <TextBlock Text="Khác"
+                       FontSize="17"
                        FontWeight="Bold"
                        Foreground="#555"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom" />
+                       VerticalAlignment="Center" />
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="0,16,0,0">
+        <StackPanel Grid.Row="1" Margin="0,0,0,0">
             <Border BorderBrush="#DADADA"
                     BorderThickness="0,1,0,1"
-                    Padding="24,18">
+                    Padding="20,10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="58" />
+                        <ColumnDefinition Width="46" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Border Width="46"
-                            Height="46"
+                    <Border Width="36"
+                            Height="36"
                             Background="#EEF8FE"
-                            CornerRadius="23">
+                            CornerRadius="18">
                         <TextBlock Text="👤"
-                                   FontSize="25"
+                                   FontSize="17"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" />
                     </Border>
                     <StackPanel Grid.Column="1">
                         <TextBlock Text="{Binding FullName}"
-                                   FontSize="22"
+                                   FontSize="15"
                                    FontWeight="Bold"
                                    Foreground="#555"
                                    TextTrimming="CharacterEllipsis" />
                         <TextBlock Text="{Binding Email}"
-                                   FontSize="16"
+                                   FontSize="12"
                                    Foreground="#999"
                                    TextTrimming="CharacterEllipsis" />
                     </StackPanel>
@@ -86,11 +82,11 @@
                     Style="{StaticResource MenuButtonStyle}">
                 <DockPanel>
                     <TextBlock Text="□  Quản lý danh mục"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555" />
                     <TextBlock Text="›"
-                               FontSize="32"
+                               FontSize="20"
                                Foreground="#AAA"
                                HorizontalAlignment="Right" />
                 </DockPanel>
@@ -100,11 +96,11 @@
                     Style="{StaticResource MenuButtonStyle}">
                 <DockPanel>
                     <TextBlock Text="ⓘ  Về ứng dụng"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555" />
                     <TextBlock Text="›"
-                               FontSize="32"
+                               FontSize="20"
                                Foreground="#AAA"
                                HorizontalAlignment="Right" />
                 </DockPanel>
@@ -114,11 +110,11 @@
                     Style="{StaticResource MenuButtonStyle}">
                 <DockPanel>
                     <TextBlock Text="↩  Đăng xuất"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#F0533F" />
                     <TextBlock Text="›"
-                               FontSize="32"
+                               FontSize="20"
                                Foreground="#AAA"
                                HorizontalAlignment="Right" />
                 </DockPanel>

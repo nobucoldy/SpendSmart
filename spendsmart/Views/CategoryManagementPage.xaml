@@ -5,7 +5,7 @@
         <Style x:Key="SegmentButtonStyle" TargetType="RadioButton">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Foreground" Value="#159CE4" />
-            <Setter Property="FontSize" Value="19" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -37,7 +37,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border x:Name="Root"
-                                Height="56"
+                                Height="40"
                                 Background="White"
                                 BorderBrush="#DDDDDD"
                                 BorderThickness="1"
@@ -65,7 +65,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border x:Name="Outer"
-                                Height="45"
+                                Height="30"
                                 Background="Transparent"
                                 BorderBrush="#E0E0E0"
                                 BorderThickness="1"
@@ -89,37 +89,34 @@
     <Grid Background="White">
         <Grid Visibility="{Binding ListVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="88" />
+                <RowDefinition Height="46" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="20,8,20,0">
-                <TextBlock Text="08:46"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           VerticalAlignment="Top" />
+            <Grid Grid.Row="0" Margin="20,0,20,0">
+                
                 <TextBlock Text="Danh mục"
-                           FontSize="24"
+                           FontSize="17"
                            FontWeight="Bold"
                            Foreground="#111111"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Bottom" />
+                           VerticalAlignment="Center" />
                 <Button Content="+"
                         Command="{Binding OpenCreateCommand}"
-                        Width="44"
-                        Height="44"
+                        Width="34"
+                        Height="34"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#0A84E9"
-                        FontSize="34"
+                        FontSize="22"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom" />
+                        VerticalAlignment="Center" />
             </Grid>
 
             <StackPanel Grid.Row="1">
-                <Border Margin="24,14,24,10"
-                        Height="42"
+                <Border Margin="24,6,24,6"
+                        Height="32"
                         Background="#E8E8EA"
                         CornerRadius="12">
                     <Grid>
@@ -140,8 +137,9 @@
                 </Border>
 
                 <TextBlock Text="{Binding StatusMessage}"
-                           MinHeight="24"
-                           Margin="24,0,24,4"
+                           MinHeight="18"
+                           Margin="24,0,24,2"
+                           FontSize="12"
                            TextWrapping="Wrap"
                            Foreground="#DC2626" />
             </StackPanel>
@@ -151,17 +149,20 @@
                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                      BorderThickness="0"
                      Background="White"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Margin="20,0,20,8">
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Margin="16,0,16,8">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" />
+                        <WrapPanel ItemWidth="136" ItemHeight="78" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Margin" Value="4" />
+                        <Setter Property="Width" Value="128" />
+                        <Setter Property="Height" Value="70" />
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="VerticalContentAlignment" Value="Stretch" />
                         <Setter Property="Template">
@@ -188,15 +189,15 @@
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="96">
+                        <Grid Width="128" Height="70">
                             <StackPanel VerticalAlignment="Center">
                                 <TextBlock Text="{Binding IconSymbol}"
-                                           FontSize="32"
+                                           FontSize="23"
                                            Foreground="{Binding Color}"
                                            HorizontalAlignment="Center" />
                                 <TextBlock Text="{Binding Name}"
                                            Margin="4,4,4,0"
-                                           FontSize="16"
+                                           FontSize="12"
                                            FontWeight="SemiBold"
                                            Foreground="#555"
                                            TextAlignment="Center"
@@ -210,90 +211,78 @@
 
         <Grid Visibility="{Binding FormVisibility}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="96" />
+                <RowDefinition Height="46" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="20,8,20,0">
-                <Border Width="82"
-                        Height="34"
-                        Background="#0A84E9"
-                        CornerRadius="17"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
-                    <TextBlock Text="08:46"
-                               Foreground="White"
-                               FontSize="20"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
-                </Border>
+            <Grid Grid.Row="0" Margin="20,0,20,0">
                 <Button Content="‹"
                         Command="{Binding BackCommand}"
-                        Width="44"
-                        Height="44"
+                        Width="34"
+                        Height="34"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#0A84E9"
-                        FontSize="44"
+                        FontSize="22"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom" />
+                        VerticalAlignment="Center" />
                 <TextBlock Text="{Binding PageTitle}"
-                           FontSize="24"
+                           FontSize="17"
                            FontWeight="Bold"
                            Foreground="#111111"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Bottom" />
+                           VerticalAlignment="Center" />
                 <Button Content="Xóa"
                         Command="{Binding DeleteCommand}"
                         Visibility="{Binding DeleteVisibility}"
                         Width="58"
-                        Height="34"
+                        Height="30"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#F0533F"
                         FontWeight="SemiBold"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom" />
+                        VerticalAlignment="Center" />
             </Grid>
 
             <ScrollViewer Grid.Row="1"
-                          VerticalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Hidden"
                           Background="White">
                 <StackPanel>
-                    <Border Height="44"
+                    <Border Height="6"
                             BorderBrush="#DADADA"
                             BorderThickness="0,1,0,1"
                             Background="#FAFAFA" />
 
                     <Border BorderBrush="#DADADA"
                             BorderThickness="0,0,0,1"
-                            Padding="20,10">
+                            Padding="16,6">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="68" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Tên"
-                                       FontSize="24"
+                                       FontSize="15"
                                        FontWeight="Bold"
                                        Foreground="#111111"
                                        VerticalAlignment="Center" />
                             <TextBox Grid.Column="1"
                                      Text="{Binding CategoryName, UpdateSourceTrigger=PropertyChanged}"
-                                     Height="42"
+                                     Height="30"
                                      BorderThickness="0"
                                      Background="Transparent"
                                      Padding="0"
                                      VerticalContentAlignment="Center"
-                                     FontSize="22"
+                                     FontSize="14"
                                      Foreground="#555555" />
                         </Grid>
                     </Border>
 
                     <TextBlock Text="Biểu tượng"
-                               Margin="20,24,20,16"
-                               FontSize="24"
+                               Margin="16,12,16,8"
+                               FontSize="16"
                                FontWeight="Bold"
                                Foreground="#111111" />
 
@@ -302,7 +291,7 @@
                              SelectedValuePath="IconName"
                              BorderThickness="0"
                              Background="White"
-                             Margin="18,0,18,22"
+                             Margin="16,0,16,12"
                              ItemContainerStyle="{StaticResource IconPickerItemStyle}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -312,7 +301,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Symbol}"
-                                           FontSize="27"
+                                           FontSize="18"
                                            Foreground="#555555"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center" />
@@ -322,11 +311,11 @@
 
                     <Border BorderBrush="#E5E5E5"
                             BorderThickness="0,1,0,0"
-                            Padding="0,22,0,0">
+                            Padding="0,12,0,0">
                         <StackPanel>
                             <TextBlock Text="Màu sắc"
-                                       Margin="20,0,20,16"
-                                       FontSize="24"
+                                       Margin="16,0,16,8"
+                                       FontSize="16"
                                        FontWeight="Bold"
                                        Foreground="#111111" />
 
@@ -334,7 +323,7 @@
                                      SelectedItem="{Binding Color, Mode=TwoWay}"
                                      BorderThickness="0"
                                      Background="White"
-                                     Margin="18,0,18,4"
+                                     Margin="16,0,16,4"
                                      ItemContainerStyle="{StaticResource ColorPickerItemStyle}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -346,8 +335,9 @@
                     </Border>
 
                     <TextBlock Text="{Binding StatusMessage}"
-                               MinHeight="26"
-                               Margin="24,4,24,0"
+                               MinHeight="18"
+                               Margin="24,2,24,0"
+                               FontSize="12"
                                TextWrapping="Wrap"
                                Foreground="#DC2626" />
                 </StackPanel>
@@ -356,14 +346,14 @@
             <Border Grid.Row="2"
                     BorderBrush="#E5E5E5"
                     BorderThickness="0,1,0,0"
-                    Padding="34,16,34,18"
+                    Padding="34,8,34,10"
                     Background="White">
                 <Button Content="{Binding SaveButtonText}"
                         Command="{Binding SaveCommand}"
-                        Height="56"
+                        Height="46"
                         Background="#76B4EA"
                         Foreground="White"
-                        FontSize="24"
+                        FontSize="17"
                         FontWeight="Bold"
                         BorderThickness="0" />
             </Border>

@@ -13,4 +13,9 @@ public partial class InputPage : UserControl
             ServiceFactory.CreateCategoryService(),
             ServiceFactory.CreateTransactionService());
     }
+
+    private void DateCalendar_SelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        DateToggle.IsChecked = false;
+    }
 }

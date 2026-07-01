@@ -5,7 +5,7 @@
         <Style x:Key="SegmentButtonStyle" TargetType="RadioButton">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Foreground" Value="#159CE4" />
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -13,7 +13,7 @@
                         <Border x:Name="Root"
                                 Margin="2"
                                 Background="Transparent"
-                                CornerRadius="10">
+                                CornerRadius="9">
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center" />
                         </Border>
@@ -27,32 +27,56 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="PrimaryActionButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="#159CE4" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#0F8FD4" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#0B7FBE" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="88" />
+            <RowDefinition Height="46" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:01"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       VerticalAlignment="Top" />
+        <Grid Grid.Row="0" Margin="20,2,20,0">
             <TextBlock Text="✎"
-                       FontSize="30"
+                       FontSize="18"
                        Foreground="#159CE4"
                        HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom" />
-            <Border Width="250"
-                    Height="38"
+                       VerticalAlignment="Center" />
+            <Border Width="210"
+                    Height="32"
                     Background="#E8E8EA"
-                    CornerRadius="12"
+                    CornerRadius="11"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom">
+                    VerticalAlignment="Center">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -72,96 +96,127 @@
         </Grid>
 
         <StackPanel Grid.Row="1">
-            <Border BorderBrush="#DADADA" BorderThickness="0,1,0,1" Padding="20,8">
+            <Border BorderBrush="#DADADA" BorderThickness="0,1,0,1" Padding="16,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="92" />
+                        <ColumnDefinition Width="68" />
+                        <ColumnDefinition Width="32" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="32" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Ngày"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555"
                                VerticalAlignment="Center" />
-                    <DatePicker Grid.Column="1"
-                                SelectedDate="{Binding SelectedDate}"
-                                Height="38"
-                                FontSize="18"
-                                Background="#EEF8FE"
-                                BorderThickness="0" />
+                    <Button Grid.Column="1"
+                            Content="&lt;"
+                            Command="{Binding PreviousDateCommand}"
+                            Height="30"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Foreground="#555"
+                            FontSize="16"
+                            FontWeight="Bold" />
+                    <Grid Grid.Column="2">
+                        <ToggleButton x:Name="DateToggle"
+                                      Content="{Binding SelectedDateText}"
+                                      Height="30"
+                                      BorderThickness="0"
+                                      Background="#EEF8FE"
+                                      Foreground="#555"
+                                      FontSize="14"
+                                      FontWeight="SemiBold" />
+                        <Popup IsOpen="{Binding IsChecked, ElementName=DateToggle, Mode=TwoWay}"
+                               PlacementTarget="{Binding ElementName=DateToggle}"
+                               Placement="Bottom"
+                               StaysOpen="False">
+                            <Border Background="White"
+                                    BorderBrush="#DADADA"
+                                    BorderThickness="1">
+                                <Calendar SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                          SelectedDatesChanged="DateCalendar_SelectedDatesChanged" />
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <Button Grid.Column="3"
+                            Content="&gt;"
+                            Command="{Binding NextDateCommand}"
+                            Height="30"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Foreground="#555"
+                            FontSize="16"
+                            FontWeight="Bold" />
                 </Grid>
             </Border>
 
-            <Border BorderBrush="#E3E3E3" BorderThickness="0,0,0,1" Padding="20,12">
+            <Border BorderBrush="#E3E3E3" BorderThickness="0,0,0,1" Padding="16,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="92" />
+                        <ColumnDefinition Width="68" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Ghi chú"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="1"
                              Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
-                             Height="38"
+                             Height="30"
                              BorderThickness="0"
                              Background="Transparent"
-                             FontSize="20"
+                             FontSize="14"
                              Foreground="#555"
                              VerticalContentAlignment="Center" />
                 </Grid>
             </Border>
 
-            <Border BorderBrush="#E3E3E3" BorderThickness="0,0,0,1" Padding="20,8">
+            <Border BorderBrush="#E3E3E3" BorderThickness="0,0,0,1" Padding="16,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="92" />
+                        <ColumnDefinition Width="68" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding AmountLabel}"
-                               FontSize="22"
+                               FontSize="15"
                                FontWeight="SemiBold"
                                Foreground="#555"
                                VerticalAlignment="Center" />
                     <Border Grid.Column="1"
-                            Height="44"
+                            Height="34"
                             Background="#EEF8FE"
                             CornerRadius="8">
                         <TextBox Text="{Binding AmountText, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="12,0"
+                                 Margin="10,0"
                                  BorderThickness="0"
                                  Background="Transparent"
-                                 FontSize="30"
+                                 FontSize="20"
                                  FontWeight="Bold"
                                  Foreground="#555"
                                  VerticalContentAlignment="Center" />
                     </Border>
                     <TextBlock Grid.Column="2"
                                Text="đ"
-                               Margin="14,0,0,0"
-                               FontSize="24"
+                               Margin="10,0,0,0"
+                               FontSize="16"
                                Foreground="#555"
                                VerticalAlignment="Center" />
                 </Grid>
             </Border>
 
             <TextBlock Text="Danh mục"
-                       Margin="20,22,0,12"
-                       FontSize="24"
+                       Margin="16,12,0,6"
+                       FontSize="17"
                        FontWeight="Bold"
                        Foreground="#555" />
-            <TextBlock Text="{Binding SelectedCategoryText}"
-                       Margin="20,0,20,4"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                       Foreground="#159CE4" />
             <TextBlock Text="{Binding StatusMessage}"
-                       MinHeight="24"
-                       Margin="20,0,20,4"
+                       MinHeight="18"
+                       Margin="16,0,16,2"
                        TextWrapping="Wrap"
+                       FontSize="12"
                        Foreground="#DC2626" />
         </StackPanel>
 
@@ -170,17 +225,20 @@
                  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                  BorderThickness="0"
                  Background="White"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 Margin="20,0,20,10">
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Margin="16,0,16,8">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="3" />
+                    <WrapPanel ItemWidth="136" ItemHeight="78" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="Margin" Value="4" />
+                    <Setter Property="Width" Value="128" />
+                    <Setter Property="Height" Value="70" />
                     <Setter Property="Cursor" Value="Hand" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -211,15 +269,15 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="94">
+                    <Grid Width="128" Height="70">
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="{Binding IconSymbol}"
-                                       FontSize="34"
+                                       FontSize="23"
                                        Foreground="{Binding Color}"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="{Binding Name}"
-                                       Margin="4,4,4,0"
-                                       FontSize="17"
+                                       Margin="4,3,4,0"
+                                       FontSize="12"
                                        Foreground="#555"
                                        TextAlignment="Center"
                                        TextTrimming="CharacterEllipsis" />
@@ -232,12 +290,10 @@
         <Button Grid.Row="3"
                 Content="{Binding SaveButtonText}"
                 Command="{Binding SaveCommand}"
-                Margin="24,8,24,18"
-                Height="58"
-                Background="#159CE4"
-                Foreground="White"
-                FontSize="24"
-                FontWeight="Bold"
-                BorderThickness="0" />
+                Width="260"
+                Height="40"
+                Margin="0,6,0,12"
+                HorizontalAlignment="Center"
+                Style="{StaticResource PrimaryActionButtonStyle}" />
     </Grid>
 </UserControl>

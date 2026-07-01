@@ -3,51 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="96" />
+            <RowDefinition Height="46" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="20,8,20,0">
-            <TextBlock Text="22:01"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       VerticalAlignment="Top" />
+        <Grid Grid.Row="0" Margin="20,0,20,0">
+            
             <TextBlock Text="Lịch"
-                       FontSize="24"
+                       FontSize="17"
                        FontWeight="Bold"
                        Foreground="#555"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom" />
+                       VerticalAlignment="Center" />
         </Grid>
 
         <Border Grid.Row="1"
                 BorderBrush="#DADADA"
                 BorderThickness="0,1,0,1"
-                Padding="18,12">
+                Padding="16,5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="32" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="32" />
                 </Grid.ColumnDefinitions>
                 <Button Content="&lt;"
                         Command="{Binding PreviousMonthCommand}"
-                        Width="42"
-                        Height="42"
+                        Width="30"
+                        Height="30"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#555"
-                        FontSize="28"
+                        FontSize="16"
                         FontWeight="Bold"
                         HorizontalAlignment="Left" />
                 <Border Grid.Column="1"
-                        Height="42"
+                        Height="30"
                         Background="#EEF8FE"
                         CornerRadius="8">
                     <TextBlock Text="{Binding MonthText}"
-                               FontSize="22"
+                               FontSize="14"
                                FontWeight="Bold"
                                Foreground="#555"
                                HorizontalAlignment="Center"
@@ -56,18 +53,18 @@
                 <Button Grid.Column="2"
                         Content="&gt;"
                         Command="{Binding NextMonthCommand}"
-                        Width="42"
-                        Height="42"
+                        Width="30"
+                        Height="30"
                         BorderThickness="0"
                         Background="Transparent"
                         Foreground="#555"
-                        FontSize="28"
+                        FontSize="16"
                         FontWeight="Bold"
                         HorizontalAlignment="Right" />
             </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Margin="18,14,18,10">
+        <Grid Grid.Row="2" Margin="16,8,16,6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -75,36 +72,36 @@
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <TextBlock Text="Thu nhập"
-                           FontSize="16"
+                           FontSize="12"
                            FontWeight="Bold"
                            Foreground="#555"
                            HorizontalAlignment="Center" />
                 <TextBlock Text="{Binding TotalIncomeText}"
-                           FontSize="23"
+                           FontSize="15"
                            FontWeight="Bold"
                            Foreground="#419CDF"
                            HorizontalAlignment="Center" />
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Chi tiêu"
-                           FontSize="16"
+                           FontSize="12"
                            FontWeight="Bold"
                            Foreground="#555"
                            HorizontalAlignment="Center" />
                 <TextBlock Text="{Binding TotalExpenseText}"
-                           FontSize="23"
+                           FontSize="15"
                            FontWeight="Bold"
                            Foreground="#F05A3A"
                            HorizontalAlignment="Center" />
             </StackPanel>
             <StackPanel Grid.Column="2">
                 <TextBlock Text="Tổng"
-                           FontSize="16"
+                           FontSize="12"
                            FontWeight="Bold"
                            Foreground="#555"
                            HorizontalAlignment="Center" />
                 <TextBlock Text="{Binding BalanceText}"
-                           FontSize="23"
+                           FontSize="15"
                            FontWeight="Bold"
                            Foreground="#F05A3A"
                            HorizontalAlignment="Center" />
@@ -115,13 +112,13 @@
             <TextBlock Text="{Binding EmptyMessage}"
                        Margin="24,40,24,0"
                        TextAlignment="Center"
-                       FontSize="18"
+                       FontSize="15"
                        Foreground="#999" />
 
             <ListBox ItemsSource="{Binding Transactions}"
                      BorderThickness="0"
                      Background="White"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="0" />
@@ -141,33 +138,33 @@
                     <DataTemplate>
                         <Border BorderBrush="#DADADA"
                                 BorderThickness="0,0,0,1"
-                                Padding="18,12">
+                                Padding="14,8">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="54" />
+                                    <ColumnDefinition Width="42" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="{Binding CategoryIcon}"
-                                           FontSize="28"
+                                           FontSize="18"
                                            Foreground="{Binding CategoryColor}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center" />
 
                                 <StackPanel Grid.Column="1">
                                     <TextBlock Text="{Binding CategoryName}"
-                                               FontSize="23"
+                                               FontSize="15"
                                                FontWeight="Bold"
                                                Foreground="#555"
                                                TextTrimming="CharacterEllipsis" />
                                     <TextBlock Text="{Binding DateText}"
                                                Margin="0,2,0,0"
-                                               FontSize="14"
+                                               FontSize="11"
                                                Foreground="#777" />
                                     <TextBlock Text="{Binding Note}"
                                                Margin="0,2,0,0"
-                                               FontSize="14"
+                                               FontSize="11"
                                                Foreground="#999"
                                                TextTrimming="CharacterEllipsis" />
                                 </StackPanel>
@@ -175,12 +172,12 @@
                                 <StackPanel Grid.Column="2"
                                             VerticalAlignment="Center">
                                     <TextBlock Text="{Binding AmountText}"
-                                               FontSize="22"
+                                               FontSize="15"
                                                FontWeight="Bold"
                                                Foreground="{Binding AmountColor}"
                                                HorizontalAlignment="Right" />
                                     <TextBlock Text="{Binding TypeText}"
-                                               FontSize="13"
+                                               FontSize="10"
                                                Foreground="#999"
                                                HorizontalAlignment="Right" />
                                 </StackPanel>

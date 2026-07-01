@@ -20,7 +20,7 @@
                 CornerRadius="18">
             <StackPanel>
                 <TextBlock Text="SpendSmart"
-                           FontSize="32"
+                           FontSize="26"
                            FontWeight="Bold"
                            Foreground="#1F2937"
                            HorizontalAlignment="Center" />

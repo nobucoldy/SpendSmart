@@ -17,7 +17,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Foreground" Value="#5F5F5F" />
-            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontSize" Value="11" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -58,7 +58,7 @@
                             Content="{Binding CurrentPage}" />
 
             <Border Grid.Row="1"
-                    Padding="10,8,10,10"
+                    Padding="8,4,8,5"
                     Background="#FAFAFA"
                     BorderBrush="#D9D9D9"
                     BorderThickness="0,1,0,0"
@@ -70,7 +70,7 @@
                                  CommandParameter="Input">
                         <StackPanel>
                             <TextBlock Text="✎"
-                                       FontSize="24"
+                                       FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Nhập vào"
                                        HorizontalAlignment="Center" />
@@ -83,7 +83,7 @@
                                  CommandParameter="History">
                         <StackPanel>
                             <TextBlock Text="▦"
-                                       FontSize="24"
+                                       FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Lịch"
                                        HorizontalAlignment="Center" />
@@ -96,7 +96,7 @@
                                  CommandParameter="Reports">
                         <StackPanel>
                             <TextBlock Text="◔"
-                                       FontSize="24"
+                                       FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Báo cáo"
                                        HorizontalAlignment="Center" />
@@ -109,7 +109,7 @@
                                  CommandParameter="Categories">
                         <StackPanel>
                             <TextBlock Text="□"
-                                       FontSize="24"
+                                       FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Danh mục"
                                        HorizontalAlignment="Center" />
@@ -122,7 +122,7 @@
                                  CommandParameter="More">
                         <StackPanel>
                             <TextBlock Text="⋯"
-                                       FontSize="24"
+                                       FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Khác"
                                        HorizontalAlignment="Center" />
