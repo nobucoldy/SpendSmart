@@ -24,6 +24,8 @@ public class CategoryService
         using var dbContext = new AppDbContext();
         var userId = applicationState.CurrentUser!.UserId;
 
+        RenameLegacyDefaultCategories(dbContext, userId);
+
         var categories = dbContext.Categories
             .AsNoTracking()
             .Where(category => category.UserId == userId && category.Type == type)
@@ -261,20 +263,70 @@ public class CategoryService
         dbContext.SaveChanges();
     }
 
+    private static void RenameLegacyDefaultCategories(AppDbContext dbContext, int userId)
+    {
+        var renamed = false;
+        var legacyNames = new Dictionary<string, string>
+        {
+            ["Food"] = "Ăn uống",
+            ["Daily Expenses"] = "Sinh hoạt",
+            ["Clothes"] = "Quần áo",
+            ["Healthcare"] = "Sức khỏe",
+            ["Education"] = "Giáo dục",
+            ["Electricity"] = "Tiền điện",
+            ["Transportation"] = "Đi lại",
+            ["Rent"] = "Thuê nhà",
+            ["Fuel"] = "Xăng dầu",
+            ["Miscellaneous"] = "Khác",
+            ["Salary"] = "Lương",
+            ["Bonus"] = "Thưởng",
+            ["Business"] = "Kinh doanh",
+            ["Investment"] = "Đầu tư",
+            ["Other Income"] = "Thu nhập khác"
+        };
+
+        var categories = dbContext.Categories
+            .Where(category => category.UserId == userId && legacyNames.Keys.Contains(category.Name))
+            .ToList();
+
+        foreach (var category in categories)
+        {
+            var newName = legacyNames[category.Name];
+            var duplicateExists = dbContext.Categories.Any(existing =>
+                existing.UserId == userId
+                && existing.Type == category.Type
+                && existing.Name == newName
+                && existing.CategoryId != category.CategoryId);
+
+            if (duplicateExists)
+            {
+                continue;
+            }
+
+            category.Name = newName;
+            renamed = true;
+        }
+
+        if (renamed)
+        {
+            dbContext.SaveChanges();
+        }
+    }
+
     private static List<Category> CreateDefaultExpenseCategories(int userId)
     {
         return new List<Category>
         {
-            new() { UserId = userId, Name = "Food", Type = TransactionTypes.Expense, IconName = "Food", Color = "#FF7043" },
-            new() { UserId = userId, Name = "Daily Expenses", Type = TransactionTypes.Expense, IconName = "ShoppingBag", Color = "#42A5F5" },
-            new() { UserId = userId, Name = "Clothes", Type = TransactionTypes.Expense, IconName = "Shirt", Color = "#AB47BC" },
-            new() { UserId = userId, Name = "Healthcare", Type = TransactionTypes.Expense, IconName = "HeartPulse", Color = "#EF5350" },
-            new() { UserId = userId, Name = "Education", Type = TransactionTypes.Expense, IconName = "BookOpen", Color = "#5C6BC0" },
-            new() { UserId = userId, Name = "Electricity", Type = TransactionTypes.Expense, IconName = "Zap", Color = "#FFA726" },
-            new() { UserId = userId, Name = "Transportation", Type = TransactionTypes.Expense, IconName = "Bus", Color = "#26A69A" },
-            new() { UserId = userId, Name = "Rent", Type = TransactionTypes.Expense, IconName = "Home", Color = "#8D6E63" },
-            new() { UserId = userId, Name = "Fuel", Type = TransactionTypes.Expense, IconName = "Fuel", Color = "#78909C" },
-            new() { UserId = userId, Name = "Miscellaneous", Type = TransactionTypes.Expense, IconName = "MoreHorizontal", Color = "#66BB6A" }
+            new() { UserId = userId, Name = "Ăn uống", Type = TransactionTypes.Expense, IconName = "Food", Color = "#FF7043" },
+            new() { UserId = userId, Name = "Sinh hoạt", Type = TransactionTypes.Expense, IconName = "ShoppingBag", Color = "#42A5F5" },
+            new() { UserId = userId, Name = "Quần áo", Type = TransactionTypes.Expense, IconName = "Shirt", Color = "#AB47BC" },
+            new() { UserId = userId, Name = "Sức khỏe", Type = TransactionTypes.Expense, IconName = "HeartPulse", Color = "#EF5350" },
+            new() { UserId = userId, Name = "Giáo dục", Type = TransactionTypes.Expense, IconName = "BookOpen", Color = "#5C6BC0" },
+            new() { UserId = userId, Name = "Tiền điện", Type = TransactionTypes.Expense, IconName = "Zap", Color = "#FFA726" },
+            new() { UserId = userId, Name = "Đi lại", Type = TransactionTypes.Expense, IconName = "Bus", Color = "#26A69A" },
+            new() { UserId = userId, Name = "Thuê nhà", Type = TransactionTypes.Expense, IconName = "Home", Color = "#8D6E63" },
+            new() { UserId = userId, Name = "Xăng dầu", Type = TransactionTypes.Expense, IconName = "Fuel", Color = "#78909C" },
+            new() { UserId = userId, Name = "Khác", Type = TransactionTypes.Expense, IconName = "MoreHorizontal", Color = "#66BB6A" }
         };
     }
 
@@ -282,11 +334,11 @@ public class CategoryService
     {
         return new List<Category>
         {
-            new() { UserId = userId, Name = "Salary", Type = TransactionTypes.Income, IconName = "Wallet", Color = "#26A69A" },
-            new() { UserId = userId, Name = "Bonus", Type = TransactionTypes.Income, IconName = "Gift", Color = "#7E57C2" },
-            new() { UserId = userId, Name = "Business", Type = TransactionTypes.Income, IconName = "Briefcase", Color = "#5C6BC0" },
-            new() { UserId = userId, Name = "Investment", Type = TransactionTypes.Income, IconName = "TrendingUp", Color = "#FFCA28" },
-            new() { UserId = userId, Name = "Other Income", Type = TransactionTypes.Income, IconName = "CircleDollar", Color = "#66BB6A" }
+            new() { UserId = userId, Name = "Lương", Type = TransactionTypes.Income, IconName = "Wallet", Color = "#26A69A" },
+            new() { UserId = userId, Name = "Thưởng", Type = TransactionTypes.Income, IconName = "Gift", Color = "#7E57C2" },
+            new() { UserId = userId, Name = "Kinh doanh", Type = TransactionTypes.Income, IconName = "Briefcase", Color = "#5C6BC0" },
+            new() { UserId = userId, Name = "Đầu tư", Type = TransactionTypes.Income, IconName = "TrendingUp", Color = "#FFCA28" },
+            new() { UserId = userId, Name = "Thu nhập khác", Type = TransactionTypes.Income, IconName = "CircleDollar", Color = "#66BB6A" }
         };
     }
 }

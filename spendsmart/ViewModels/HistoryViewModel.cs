@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Windows.Input;
 using spendsmart.Constants;
 using spendsmart.Models;
 using spendsmart.Services;
@@ -11,6 +9,7 @@ public class HistoryViewModel : BaseViewModel
 {
     private readonly TransactionService transactionService;
     private DateTime selectedMonth = new(DateTime.Today.Year, DateTime.Today.Month, 1);
+    private DateTime? selectedDate = DateTime.Today;
     private decimal totalIncome;
     private decimal totalExpense;
     private decimal balance;
@@ -18,7 +17,7 @@ public class HistoryViewModel : BaseViewModel
     public HistoryViewModel(TransactionService transactionService)
     {
         this.transactionService = transactionService;
-        Transactions = new ObservableCollection<TransactionHistoryItemViewModel>();
+        Transactions = new ObservableCollection<HistoryListItemViewModel>();
         PreviousMonthCommand = new RelayCommand(() => ChangeMonth(-1));
         NextMonthCommand = new RelayCommand(() => ChangeMonth(1));
         RefreshCommand = new RelayCommand(Refresh);
@@ -26,14 +25,34 @@ public class HistoryViewModel : BaseViewModel
         Refresh();
     }
 
-    public ObservableCollection<TransactionHistoryItemViewModel> Transactions { get; }
+    public ObservableCollection<HistoryListItemViewModel> Transactions { get; }
+
+    public DateTime? SelectedDate
+    {
+        get => selectedDate;
+        set
+        {
+            if (!SetProperty(ref selectedDate, value) || !selectedDate.HasValue)
+            {
+                return;
+            }
+
+            var month = new DateTime(selectedDate.Value.Year, selectedDate.Value.Month, 1);
+            if (month != selectedMonth)
+            {
+                selectedMonth = month;
+                OnPropertyChanged(nameof(MonthText));
+                Refresh();
+            }
+        }
+    }
 
     public string MonthText
     {
         get
         {
             var lastDay = DateTime.DaysInMonth(selectedMonth.Year, selectedMonth.Month);
-            return $"{selectedMonth:MM/yyyy}  (01/{selectedMonth:MM}–{lastDay:00}/{selectedMonth:MM})";
+            return $"{selectedMonth:MM/yyyy}  (01/{selectedMonth:MM}-{lastDay:00}/{selectedMonth:MM})";
         }
     }
 
@@ -45,11 +64,11 @@ public class HistoryViewModel : BaseViewModel
 
     public string EmptyMessage => Transactions.Count == 0 ? "Chưa có giao dịch trong tháng này." : string.Empty;
 
-    public ICommand PreviousMonthCommand { get; }
+    public System.Windows.Input.ICommand PreviousMonthCommand { get; }
 
-    public ICommand NextMonthCommand { get; }
+    public System.Windows.Input.ICommand NextMonthCommand { get; }
 
-    public ICommand RefreshCommand { get; }
+    public System.Windows.Input.ICommand RefreshCommand { get; }
 
     public void Refresh()
     {
@@ -66,9 +85,22 @@ public class HistoryViewModel : BaseViewModel
         balance = totalIncome - totalExpense;
 
         Transactions.Clear();
-        foreach (var transaction in transactions)
+        foreach (var group in transactions.GroupBy(transaction => transaction.Date.Date).OrderByDescending(group => group.Key))
         {
-            Transactions.Add(new TransactionHistoryItemViewModel(transaction));
+            var dailyIncome = group
+                .Where(transaction => transaction.Type == TransactionTypes.Income)
+                .Sum(transaction => transaction.Amount);
+
+            var dailyExpense = group
+                .Where(transaction => transaction.Type == TransactionTypes.Expense)
+                .Sum(transaction => transaction.Amount);
+
+            Transactions.Add(HistoryListItemViewModel.CreateHeader(group.Key, dailyIncome - dailyExpense));
+
+            foreach (var transaction in group)
+            {
+                Transactions.Add(HistoryListItemViewModel.CreateTransaction(transaction));
+            }
         }
 
         OnPropertyChanged(nameof(TotalIncomeText));
@@ -80,6 +112,8 @@ public class HistoryViewModel : BaseViewModel
     private void ChangeMonth(int offset)
     {
         selectedMonth = selectedMonth.AddMonths(offset);
+        selectedDate = selectedMonth;
+        OnPropertyChanged(nameof(SelectedDate));
         OnPropertyChanged(nameof(MonthText));
         Refresh();
     }
@@ -88,6 +122,70 @@ public class HistoryViewModel : BaseViewModel
     {
         var prefix = includeSign && amount > 0 ? "+" : string.Empty;
         return $"{prefix}{amount:N0}đ";
+    }
+}
+
+public sealed class HistoryListItemViewModel
+{
+    private HistoryListItemViewModel()
+    {
+    }
+
+    public bool IsHeader { get; private init; }
+
+    public bool IsTransaction => !IsHeader;
+
+    public string HeaderDateText { get; private init; } = string.Empty;
+
+    public string HeaderAmountText { get; private init; } = string.Empty;
+
+    public string HeaderAmountColor { get; private init; } = "#555555";
+
+    public TransactionHistoryItemViewModel? Transaction { get; private init; }
+
+    public static HistoryListItemViewModel CreateHeader(DateTime date, decimal total)
+    {
+        return new HistoryListItemViewModel
+        {
+            IsHeader = true,
+            HeaderDateText = $"{date:dd/MM/yyyy} ({GetVietnameseDayName(date)})",
+            HeaderAmountText = FormatSignedMoney(total),
+            HeaderAmountColor = total >= 0 ? "#419CDF" : "#F05A3A"
+        };
+    }
+
+    public static HistoryListItemViewModel CreateTransaction(Transaction transaction)
+    {
+        return new HistoryListItemViewModel
+        {
+            Transaction = new TransactionHistoryItemViewModel(transaction)
+        };
+    }
+
+    private static string FormatSignedMoney(decimal amount)
+    {
+        if (amount == 0)
+        {
+            return "0đ";
+        }
+
+        var sign = amount > 0 ? "+" : "-";
+        return $"{sign}{Math.Abs(amount):N0}đ";
+    }
+
+    private static string GetVietnameseDayName(DateTime date)
+    {
+        return date.DayOfWeek switch
+        {
+            DayOfWeek.Monday => "Thứ 2",
+            DayOfWeek.Tuesday => "Thứ 3",
+            DayOfWeek.Wednesday => "Thứ 4",
+            DayOfWeek.Thursday => "Thứ 5",
+            DayOfWeek.Friday => "Thứ 6",
+            DayOfWeek.Saturday => "Thứ 7",
+            DayOfWeek.Sunday => "CN",
+            _ => string.Empty
+        };
     }
 }
 
@@ -117,8 +215,6 @@ public sealed class TransactionHistoryItemViewModel
     public DateTime Date { get; }
 
     public string Note { get; }
-
-    public string DateText => Date.ToString("dd/MM/yyyy (ddd)", CultureInfo.CurrentCulture);
 
     public string TypeText => Type == TransactionTypes.Income ? "Thu nhập" : "Chi tiêu";
 

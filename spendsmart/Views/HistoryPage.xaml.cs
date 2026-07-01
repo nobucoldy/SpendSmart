@@ -20,4 +20,9 @@ public partial class HistoryPage : UserControl
             viewModel.Refresh();
         }
     }
+
+    private void MonthCalendar_SelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        MonthToggle.IsChecked = false;
+    }
 }

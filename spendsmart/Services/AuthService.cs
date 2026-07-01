@@ -106,21 +106,21 @@ public class AuthService
     {
         return new List<Category>
         {
-            new() { Name = "Food", Type = TransactionTypes.Expense, IconName = "Food", Color = "#FF7043" },
-            new() { Name = "Daily Expenses", Type = TransactionTypes.Expense, IconName = "ShoppingBag", Color = "#42A5F5" },
-            new() { Name = "Clothes", Type = TransactionTypes.Expense, IconName = "Shirt", Color = "#AB47BC" },
-            new() { Name = "Healthcare", Type = TransactionTypes.Expense, IconName = "HeartPulse", Color = "#EF5350" },
-            new() { Name = "Education", Type = TransactionTypes.Expense, IconName = "BookOpen", Color = "#5C6BC0" },
-            new() { Name = "Electricity", Type = TransactionTypes.Expense, IconName = "Zap", Color = "#FFA726" },
-            new() { Name = "Transportation", Type = TransactionTypes.Expense, IconName = "Bus", Color = "#26A69A" },
-            new() { Name = "Rent", Type = TransactionTypes.Expense, IconName = "Home", Color = "#8D6E63" },
-            new() { Name = "Fuel", Type = TransactionTypes.Expense, IconName = "Fuel", Color = "#78909C" },
-            new() { Name = "Miscellaneous", Type = TransactionTypes.Expense, IconName = "MoreHorizontal", Color = "#66BB6A" },
-            new() { Name = "Salary", Type = TransactionTypes.Income, IconName = "Wallet", Color = "#26A69A" },
-            new() { Name = "Bonus", Type = TransactionTypes.Income, IconName = "Gift", Color = "#7E57C2" },
-            new() { Name = "Business", Type = TransactionTypes.Income, IconName = "Briefcase", Color = "#5C6BC0" },
-            new() { Name = "Investment", Type = TransactionTypes.Income, IconName = "TrendingUp", Color = "#FFCA28" },
-            new() { Name = "Other Income", Type = TransactionTypes.Income, IconName = "CircleDollar", Color = "#66BB6A" }
+            new() { Name = "Ăn uống", Type = TransactionTypes.Expense, IconName = "Food", Color = "#FF7043" },
+            new() { Name = "Sinh hoạt", Type = TransactionTypes.Expense, IconName = "ShoppingBag", Color = "#42A5F5" },
+            new() { Name = "Quần áo", Type = TransactionTypes.Expense, IconName = "Shirt", Color = "#AB47BC" },
+            new() { Name = "Sức khỏe", Type = TransactionTypes.Expense, IconName = "HeartPulse", Color = "#EF5350" },
+            new() { Name = "Giáo dục", Type = TransactionTypes.Expense, IconName = "BookOpen", Color = "#5C6BC0" },
+            new() { Name = "Tiền điện", Type = TransactionTypes.Expense, IconName = "Zap", Color = "#FFA726" },
+            new() { Name = "Đi lại", Type = TransactionTypes.Expense, IconName = "Bus", Color = "#26A69A" },
+            new() { Name = "Thuê nhà", Type = TransactionTypes.Expense, IconName = "Home", Color = "#8D6E63" },
+            new() { Name = "Xăng dầu", Type = TransactionTypes.Expense, IconName = "Fuel", Color = "#78909C" },
+            new() { Name = "Khác", Type = TransactionTypes.Expense, IconName = "MoreHorizontal", Color = "#66BB6A" },
+            new() { Name = "Lương", Type = TransactionTypes.Income, IconName = "Wallet", Color = "#26A69A" },
+            new() { Name = "Thưởng", Type = TransactionTypes.Income, IconName = "Gift", Color = "#7E57C2" },
+            new() { Name = "Kinh doanh", Type = TransactionTypes.Income, IconName = "Briefcase", Color = "#5C6BC0" },
+            new() { Name = "Đầu tư", Type = TransactionTypes.Income, IconName = "TrendingUp", Color = "#FFCA28" },
+            new() { Name = "Thu nhập khác", Type = TransactionTypes.Income, IconName = "CircleDollar", Color = "#66BB6A" }
         };
     }
 }

@@ -82,7 +82,7 @@
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="History">
                         <StackPanel>
-                            <TextBlock Text="▦"
+                            <TextBlock Text="▤"
                                        FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Lịch"
@@ -108,7 +108,7 @@
                                  Command="{Binding NavigateCommand}"
                                  CommandParameter="Categories">
                         <StackPanel>
-                            <TextBlock Text="□"
+                            <TextBlock Text="▦"
                                        FontSize="17"
                                        HorizontalAlignment="Center" />
                             <TextBlock Text="Danh mục"
