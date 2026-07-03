@@ -28,13 +28,26 @@ public class MoreViewModel : BaseViewModel
 
     private void Logout()
     {
-        var confirm = MessageBox.Show(
-            "Do you want to logout?",
-            "Logout",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
+        var activeWindow = Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(window => window.IsActive);
 
-        if (confirm != MessageBoxResult.Yes)
+        var dialog = new ConfirmDialog(
+            "Đăng xuất",
+            "Bạn có chắc chắn muốn đăng xuất khỏi SpendSmart không?",
+            "Đăng xuất",
+            "Hủy",
+            "↩",
+            "#EEF8FE",
+            "#159CE4",
+            "#159CE4");
+
+        if (activeWindow is not null)
+        {
+            dialog.Owner = activeWindow;
+        }
+
+        if (dialog.ShowDialog() != true)
         {
             return;
         }

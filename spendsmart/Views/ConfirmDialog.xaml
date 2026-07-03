@@ -69,12 +69,12 @@
 
                 <Border Width="32"
                         Height="32"
-                        Background="#FFF1EE"
+                        Background="{Binding IconBackground}"
                         CornerRadius="10"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top">
-                    <TextBlock Text="!"
-                               Foreground="#F05A3A"
+                    <TextBlock Text="{Binding IconText}"
+                               Foreground="{Binding IconForeground}"
                                FontSize="18"
                                FontWeight="Black"
                                HorizontalAlignment="Center"
@@ -109,7 +109,7 @@
                         Style="{StaticResource DialogButtonStyle}" />
                 <Button Content="{Binding ConfirmText}"
                         Click="Confirm_Click"
-                        Background="#F05A3A"
+                        Background="{Binding ConfirmBackground}"
                         Style="{StaticResource DialogButtonStyle}" />
             </StackPanel>
         </Grid>
