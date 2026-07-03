@@ -169,50 +169,62 @@
                                 </Grid>
                             </Border>
 
-                            <Border BorderBrush="#DADADA"
-                                    BorderThickness="0,0,0,1"
-                                    Padding="14,8"
+                            <Button Command="{Binding DataContext.EditTransactionCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding Transaction.TransactionId}"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Padding="0"
+                                    HorizontalContentAlignment="Stretch"
                                     Visibility="{Binding IsTransaction, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="42" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Button.Template>
+                                <Border BorderBrush="#DADADA"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="14,8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="42" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="{Binding Transaction.CategoryIcon}"
-                                               FontSize="18"
-                                               Foreground="{Binding Transaction.CategoryColor}"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding Transaction.CategoryIcon}"
+                                                   FontSize="18"
+                                                   Foreground="{Binding Transaction.CategoryColor}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
 
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding Transaction.CategoryName}"
-                                                   FontSize="15"
-                                                   FontWeight="Bold"
-                                                   Foreground="#555"
-                                                   TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Text="{Binding Transaction.Note}"
-                                                   Margin="0,2,0,0"
-                                                   FontSize="11"
-                                                   Foreground="#999"
-                                                   TextTrimming="CharacterEllipsis" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Transaction.CategoryName}"
+                                                       FontSize="15"
+                                                       FontWeight="Bold"
+                                                       Foreground="#555"
+                                                       TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding Transaction.Note}"
+                                                       Margin="0,2,0,0"
+                                                       FontSize="11"
+                                                       Foreground="#999"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
 
-                                    <StackPanel Grid.Column="2"
-                                                VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Transaction.AmountText}"
-                                                   FontSize="15"
-                                                   FontWeight="Bold"
-                                                   Foreground="{Binding Transaction.AmountColor}"
-                                                   HorizontalAlignment="Right" />
-                                        <TextBlock Text="{Binding Transaction.TypeText}"
-                                                   FontSize="10"
-                                                   Foreground="#999"
-                                                   HorizontalAlignment="Right" />
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
+                                        <StackPanel Grid.Column="2"
+                                                    VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Transaction.AmountText}"
+                                                       FontSize="15"
+                                                       FontWeight="Bold"
+                                                       Foreground="{Binding Transaction.AmountColor}"
+                                                       HorizontalAlignment="Right" />
+                                            <TextBlock Text="{Binding Transaction.TypeText}"
+                                                       FontSize="10"
+                                                       Foreground="#999"
+                                                       HorizontalAlignment="Right" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </Button>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

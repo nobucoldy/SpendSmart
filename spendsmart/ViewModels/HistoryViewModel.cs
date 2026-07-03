@@ -8,19 +8,22 @@ namespace spendsmart.ViewModels;
 public class HistoryViewModel : BaseViewModel
 {
     private readonly TransactionService transactionService;
+    private readonly Action<int>? editTransaction;
     private DateTime selectedMonth = new(DateTime.Today.Year, DateTime.Today.Month, 1);
     private DateTime? selectedDate = DateTime.Today;
     private decimal totalIncome;
     private decimal totalExpense;
     private decimal balance;
 
-    public HistoryViewModel(TransactionService transactionService)
+    public HistoryViewModel(TransactionService transactionService, Action<int>? editTransaction = null)
     {
         this.transactionService = transactionService;
+        this.editTransaction = editTransaction;
         Transactions = new ObservableCollection<HistoryListItemViewModel>();
         PreviousMonthCommand = new RelayCommand(() => ChangeMonth(-1));
         NextMonthCommand = new RelayCommand(() => ChangeMonth(1));
         RefreshCommand = new RelayCommand(Refresh);
+        EditTransactionCommand = new RelayCommand(EditTransaction);
 
         Refresh();
     }
@@ -70,6 +73,8 @@ public class HistoryViewModel : BaseViewModel
 
     public System.Windows.Input.ICommand RefreshCommand { get; }
 
+    public System.Windows.Input.ICommand EditTransactionCommand { get; }
+
     public void Refresh()
     {
         var transactions = transactionService.GetTransactionsForMonth(selectedMonth);
@@ -116,6 +121,14 @@ public class HistoryViewModel : BaseViewModel
         OnPropertyChanged(nameof(SelectedDate));
         OnPropertyChanged(nameof(MonthText));
         Refresh();
+    }
+
+    private void EditTransaction(object? parameter)
+    {
+        if (parameter is int transactionId)
+        {
+            editTransaction?.Invoke(transactionId);
+        }
     }
 
     private static string FormatMoney(decimal amount, bool includeSign = false)
@@ -193,6 +206,7 @@ public sealed class TransactionHistoryItemViewModel
 {
     public TransactionHistoryItemViewModel(Transaction transaction)
     {
+        TransactionId = transaction.TransactionId;
         CategoryName = transaction.Category?.Name ?? "Unknown";
         CategoryIcon = CategoryItemViewModel.GetIconSymbol(transaction.Category?.IconName ?? string.Empty);
         CategoryColor = transaction.Category?.Color ?? "#666666";
@@ -201,6 +215,8 @@ public sealed class TransactionHistoryItemViewModel
         Date = transaction.Date;
         Note = transaction.Note ?? string.Empty;
     }
+
+    public int TransactionId { get; }
 
     public string CategoryName { get; }
 

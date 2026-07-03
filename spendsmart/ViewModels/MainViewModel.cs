@@ -6,16 +6,21 @@ namespace spendsmart.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
-    private readonly InputPage inputPage = new();
-    private readonly HistoryPage historyPage = new();
-    private readonly ReportPage reportPage = new();
-    private readonly CategoryManagementPage categoryManagementPage = new();
-    private readonly MorePage morePage = new();
+    private readonly InputPage inputPage;
+    private readonly HistoryPage historyPage;
+    private readonly ReportPage reportPage;
+    private readonly CategoryManagementPage categoryManagementPage;
+    private readonly MorePage morePage;
     private UserControl currentPage;
     private string selectedTab = "Input";
 
     public MainViewModel()
     {
+        inputPage = new InputPage(ReturnToHistory);
+        historyPage = new HistoryPage(OpenTransactionForEdit);
+        reportPage = new ReportPage();
+        categoryManagementPage = new CategoryManagementPage();
+        morePage = new MorePage();
         currentPage = inputPage;
         NavigateCommand = new RelayCommand(Navigate);
     }
@@ -93,5 +98,23 @@ public class MainViewModel : BaseViewModel
                 categoryManagementViewModel.Refresh();
                 break;
         }
+    }
+
+    private void OpenTransactionForEdit(int transactionId)
+    {
+        if (inputPage.DataContext is InputViewModel inputViewModel)
+        {
+            inputViewModel.LoadTransactionForEdit(transactionId);
+        }
+
+        CurrentPage = inputPage;
+        SelectedTab = "Input";
+    }
+
+    private void ReturnToHistory()
+    {
+        RefreshPage(historyPage);
+        CurrentPage = historyPage;
+        SelectedTab = "History";
     }
 }

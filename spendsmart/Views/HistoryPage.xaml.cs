@@ -7,9 +7,14 @@ namespace spendsmart.Views;
 public partial class HistoryPage : UserControl
 {
     public HistoryPage()
+        : this(null)
+    {
+    }
+
+    public HistoryPage(Action<int>? editTransaction)
     {
         InitializeComponent();
-        DataContext = new HistoryViewModel(ServiceFactory.CreateTransactionService());
+        DataContext = new HistoryViewModel(ServiceFactory.CreateTransactionService(), editTransaction);
         IsVisibleChanged += HistoryPage_IsVisibleChanged;
     }
 
