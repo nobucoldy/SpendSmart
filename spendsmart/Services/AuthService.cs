@@ -21,29 +21,29 @@ public class AuthService
 
         if (string.IsNullOrWhiteSpace(fullName))
         {
-            return AuthResult.Fail("Full name is required.");
+            return AuthResult.Fail("Vui lòng nhập họ tên.");
         }
 
         if (string.IsNullOrWhiteSpace(email))
         {
-            return AuthResult.Fail("Email is required.");
+            return AuthResult.Fail("Vui lòng nhập email.");
         }
 
         if (string.IsNullOrWhiteSpace(password))
         {
-            return AuthResult.Fail("Password is required.");
+            return AuthResult.Fail("Vui lòng nhập mật khẩu.");
         }
 
         if (password != confirmPassword)
         {
-            return AuthResult.Fail("Confirm password does not match.");
+            return AuthResult.Fail("Mật khẩu xác nhận không khớp.");
         }
 
         using var dbContext = new AppDbContext();
 
         if (dbContext.Users.Any(user => user.Email == email))
         {
-            return AuthResult.Fail("Email already exists.");
+            return AuthResult.Fail("Email đã tồn tại.");
         }
 
         var user = new User
@@ -60,7 +60,7 @@ public class AuthService
         dbContext.SaveChanges();
 
         applicationState.SetCurrentUser(user);
-        return AuthResult.Ok(user, "Register successfully.");
+        return AuthResult.Ok(user, "Đăng ký thành công.");
     }
 
     public AuthResult Login(string email, string password)
@@ -69,12 +69,12 @@ public class AuthService
 
         if (string.IsNullOrWhiteSpace(email))
         {
-            return AuthResult.Fail("Email is required.");
+            return AuthResult.Fail("Vui lòng nhập email.");
         }
 
         if (string.IsNullOrWhiteSpace(password))
         {
-            return AuthResult.Fail("Password is required.");
+            return AuthResult.Fail("Vui lòng nhập mật khẩu.");
         }
 
         using var dbContext = new AppDbContext();
@@ -85,11 +85,11 @@ public class AuthService
 
         if (user is null)
         {
-            return AuthResult.Fail("Email or password is incorrect.");
+            return AuthResult.Fail("Email hoặc mật khẩu không đúng.");
         }
 
         applicationState.SetCurrentUser(user);
-        return AuthResult.Ok(user, "Login successfully.");
+        return AuthResult.Ok(user, "Đăng nhập thành công.");
     }
 
     public void Logout()

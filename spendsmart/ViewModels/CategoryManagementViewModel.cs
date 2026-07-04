@@ -4,6 +4,7 @@ using System.Windows.Input;
 using spendsmart.Constants;
 using spendsmart.Models;
 using spendsmart.Services;
+using spendsmart.Views;
 
 namespace spendsmart.ViewModels;
 
@@ -212,13 +213,22 @@ public class CategoryManagementViewModel : BaseViewModel
             return;
         }
 
-        var confirm = MessageBox.Show(
-            $"Delete category \"{SelectedCategory.Name}\"?",
-            "Delete category",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
+        var activeWindow = Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(window => window.IsActive);
 
-        if (confirm != MessageBoxResult.Yes)
+        var dialog = new ConfirmDialog(
+            "Xóa danh mục",
+            $"Bạn có chắc chắn muốn xóa danh mục \"{SelectedCategory.Name}\" không?",
+            "Xóa",
+            "Hủy");
+
+        if (activeWindow is not null)
+        {
+            dialog.Owner = activeWindow;
+        }
+
+        if (dialog.ShowDialog() != true)
         {
             return;
         }

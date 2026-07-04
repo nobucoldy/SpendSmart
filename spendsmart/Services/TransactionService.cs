@@ -7,6 +7,7 @@ namespace spendsmart.Services;
 
 public class TransactionService
 {
+    private const int NoteMaxLength = 255;
     private readonly ApplicationState applicationState;
 
     public TransactionService(ApplicationState applicationState)
@@ -18,17 +19,23 @@ public class TransactionService
     {
         if (!applicationState.IsLoggedIn)
         {
-            return TransactionResult.Fail("You must login first.");
+            return TransactionResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         if (!TransactionTypes.IsValid(type))
         {
-            return TransactionResult.Fail("Transaction type is invalid.");
+            return TransactionResult.Fail("Loại giao dịch không hợp lệ.");
         }
 
         if (amount <= 0)
         {
-            return TransactionResult.Fail("Amount must be greater than zero.");
+            return TransactionResult.Fail("Số tiền phải lớn hơn 0.");
+        }
+
+        var normalizedNote = NormalizeNote(note);
+        if (normalizedNote?.Length > NoteMaxLength)
+        {
+            return TransactionResult.Fail($"Ghi chú không được vượt quá {NoteMaxLength} ký tự.");
         }
 
         using var dbContext = new AppDbContext();
@@ -39,12 +46,12 @@ public class TransactionService
 
         if (category is null)
         {
-            return TransactionResult.Fail("Category is required.");
+            return TransactionResult.Fail("Vui lòng chọn danh mục.");
         }
 
         if (category.Type != type)
         {
-            return TransactionResult.Fail("Category type must match transaction type.");
+            return TransactionResult.Fail("Loại danh mục phải khớp với loại giao dịch.");
         }
 
         var transaction = new Transaction
@@ -54,14 +61,14 @@ public class TransactionService
             Amount = amount,
             Type = type,
             Date = date.Date,
-            Note = string.IsNullOrWhiteSpace(note) ? null : note.Trim(),
+            Note = normalizedNote,
             CreatedAt = DateTime.Now
         };
 
         dbContext.Transactions.Add(transaction);
         dbContext.SaveChanges();
 
-        return TransactionResult.Ok(transaction, "Transaction saved successfully.");
+        return TransactionResult.Ok(transaction, "Lưu giao dịch thành công.");
     }
 
     public Transaction? GetTransactionById(int transactionId)
@@ -84,17 +91,23 @@ public class TransactionService
     {
         if (!applicationState.IsLoggedIn)
         {
-            return TransactionResult.Fail("You must login first.");
+            return TransactionResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         if (!TransactionTypes.IsValid(type))
         {
-            return TransactionResult.Fail("Transaction type is invalid.");
+            return TransactionResult.Fail("Loại giao dịch không hợp lệ.");
         }
 
         if (amount <= 0)
         {
-            return TransactionResult.Fail("Amount must be greater than zero.");
+            return TransactionResult.Fail("Số tiền phải lớn hơn 0.");
+        }
+
+        var normalizedNote = NormalizeNote(note);
+        if (normalizedNote?.Length > NoteMaxLength)
+        {
+            return TransactionResult.Fail($"Ghi chú không được vượt quá {NoteMaxLength} ký tự.");
         }
 
         using var dbContext = new AppDbContext();
@@ -104,7 +117,7 @@ public class TransactionService
 
         if (transaction is null)
         {
-            return TransactionResult.Fail("Transaction not found.");
+            return TransactionResult.Fail("Không tìm thấy giao dịch.");
         }
 
         var category = dbContext.Categories
@@ -113,30 +126,30 @@ public class TransactionService
 
         if (category is null)
         {
-            return TransactionResult.Fail("Category is required.");
+            return TransactionResult.Fail("Vui lòng chọn danh mục.");
         }
 
         if (category.Type != type)
         {
-            return TransactionResult.Fail("Category type must match transaction type.");
+            return TransactionResult.Fail("Loại danh mục phải khớp với loại giao dịch.");
         }
 
         transaction.CategoryId = category.CategoryId;
         transaction.Amount = amount;
         transaction.Type = type;
         transaction.Date = date.Date;
-        transaction.Note = string.IsNullOrWhiteSpace(note) ? null : note.Trim();
+        transaction.Note = normalizedNote;
 
         dbContext.SaveChanges();
 
-        return TransactionResult.Ok(transaction, "Transaction updated successfully.");
+        return TransactionResult.Ok(transaction, "Cập nhật giao dịch thành công.");
     }
 
     public TransactionResult DeleteTransaction(int transactionId)
     {
         if (!applicationState.IsLoggedIn)
         {
-            return TransactionResult.Fail("You must login first.");
+            return TransactionResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         using var dbContext = new AppDbContext();
@@ -146,13 +159,13 @@ public class TransactionService
 
         if (transaction is null)
         {
-            return TransactionResult.Fail("Transaction not found.");
+            return TransactionResult.Fail("Không tìm thấy giao dịch.");
         }
 
         dbContext.Transactions.Remove(transaction);
         dbContext.SaveChanges();
 
-        return TransactionResult.Ok(transaction, "Transaction deleted successfully.");
+        return TransactionResult.Ok(transaction, "Xóa giao dịch thành công.");
     }
 
     public List<Transaction> GetTransactionsForMonth(DateTime month)
@@ -178,5 +191,10 @@ public class TransactionService
             .OrderByDescending(transaction => transaction.Date)
             .ThenByDescending(transaction => transaction.CreatedAt)
             .ToList();
+    }
+
+    private static string? NormalizeNote(string? note)
+    {
+        return string.IsNullOrWhiteSpace(note) ? null : note.Trim();
     }
 }

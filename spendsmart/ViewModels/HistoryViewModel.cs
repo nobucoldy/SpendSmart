@@ -207,7 +207,7 @@ public sealed class TransactionHistoryItemViewModel
     public TransactionHistoryItemViewModel(Transaction transaction)
     {
         TransactionId = transaction.TransactionId;
-        CategoryName = transaction.Category?.Name ?? "Unknown";
+        CategoryName = transaction.Category?.Name ?? "Không rõ";
         CategoryIcon = CategoryItemViewModel.GetIconSymbol(transaction.Category?.IconName ?? string.Empty);
         CategoryColor = transaction.Category?.Color ?? "#666666";
         Amount = transaction.Amount;

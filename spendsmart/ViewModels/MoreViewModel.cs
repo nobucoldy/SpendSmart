@@ -18,9 +18,9 @@ public class MoreViewModel : BaseViewModel
         ShowAboutCommand = new RelayCommand(ShowAbout);
     }
 
-    public string FullName => applicationState.CurrentUser?.FullName ?? "Guest";
+    public string FullName => applicationState.CurrentUser?.FullName ?? "Khách";
 
-    public string Email => applicationState.CurrentUser?.Email ?? "Not logged in";
+    public string Email => applicationState.CurrentUser?.Email ?? "Chưa đăng nhập";
 
     public ICommand LogoutCommand { get; }
 

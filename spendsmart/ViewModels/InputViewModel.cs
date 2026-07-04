@@ -149,7 +149,7 @@ public class InputViewModel : BaseViewModel
         var transaction = transactionService.GetTransactionById(transactionId);
         if (transaction is null)
         {
-            StatusMessage = "Transaction not found.";
+            StatusMessage = "Không tìm thấy giao dịch.";
             return;
         }
 
@@ -193,9 +193,9 @@ public class InputViewModel : BaseViewModel
 
         if (Categories.Count == 0)
         {
-            StatusMessage = "No categories found. Add a category first.";
+            StatusMessage = "Chưa có danh mục. Vui lòng thêm danh mục trước.";
         }
-        else if (StatusMessage == "No categories found. Add a category first.")
+        else if (StatusMessage == "Chưa có danh mục. Vui lòng thêm danh mục trước.")
         {
             StatusMessage = string.Empty;
         }
@@ -207,20 +207,20 @@ public class InputViewModel : BaseViewModel
 
         if (SelectedCategory is null)
         {
-            StatusMessage = "Category is required.";
+            StatusMessage = "Vui lòng chọn danh mục.";
             return;
         }
 
         if (!SelectedDate.HasValue)
         {
-            StatusMessage = "Date is required.";
+            StatusMessage = "Vui lòng chọn ngày.";
             return;
         }
 
         if (!decimal.TryParse(AmountText, NumberStyles.Number, CultureInfo.CurrentCulture, out var amount)
             && !decimal.TryParse(AmountText, NumberStyles.Number, CultureInfo.InvariantCulture, out amount))
         {
-            StatusMessage = "Amount must be a valid number.";
+            StatusMessage = "Số tiền phải là một số hợp lệ.";
             return;
         }
 

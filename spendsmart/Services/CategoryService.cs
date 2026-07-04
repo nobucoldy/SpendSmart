@@ -50,7 +50,7 @@ public class CategoryService
     {
         if (!applicationState.IsLoggedIn)
         {
-            return CategoryResult.Fail("You must login first.");
+            return CategoryResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         var validationError = ValidateCategory(name, type, iconName, color);
@@ -68,7 +68,7 @@ public class CategoryService
 
         if (CategoryNameExists(dbContext, userId, type, name))
         {
-            return CategoryResult.Fail("Category name already exists for this type.");
+            return CategoryResult.Fail("Tên danh mục đã tồn tại cho loại này.");
         }
 
         var category = new Category
@@ -83,14 +83,14 @@ public class CategoryService
         dbContext.Categories.Add(category);
         dbContext.SaveChanges();
 
-        return CategoryResult.Ok(category, "Category added successfully.");
+        return CategoryResult.Ok(category, "Thêm danh mục thành công.");
     }
 
     public CategoryResult UpdateCategory(int categoryId, string name, string iconName, string color)
     {
         if (!applicationState.IsLoggedIn)
         {
-            return CategoryResult.Fail("You must login first.");
+            return CategoryResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         var validationError = ValidateCategory(name, TransactionTypes.Expense, iconName, color, validateType: false);
@@ -110,12 +110,12 @@ public class CategoryService
 
         if (category is null)
         {
-            return CategoryResult.Fail("Category was not found.");
+            return CategoryResult.Fail("Không tìm thấy danh mục.");
         }
 
         if (CategoryNameExists(dbContext, userId, category.Type, name, category.CategoryId))
         {
-            return CategoryResult.Fail("Category name already exists for this type.");
+            return CategoryResult.Fail("Tên danh mục đã tồn tại cho loại này.");
         }
 
         category.Name = name;
@@ -123,19 +123,19 @@ public class CategoryService
         category.Color = color;
 
         dbContext.SaveChanges();
-        return CategoryResult.Ok(category, "Category updated successfully.");
+        return CategoryResult.Ok(category, "Cập nhật danh mục thành công.");
     }
 
     public CategoryResult ChangeCategoryType(int categoryId, string newType)
     {
         if (!applicationState.IsLoggedIn)
         {
-            return CategoryResult.Fail("You must login first.");
+            return CategoryResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         if (!TransactionTypes.IsValid(newType))
         {
-            return CategoryResult.Fail("Category type is invalid.");
+            return CategoryResult.Fail("Loại danh mục không hợp lệ.");
         }
 
         using var dbContext = new AppDbContext();
@@ -145,30 +145,30 @@ public class CategoryService
 
         if (category is null)
         {
-            return CategoryResult.Fail("Category was not found.");
+            return CategoryResult.Fail("Không tìm thấy danh mục.");
         }
 
         if (dbContext.Transactions.Any(transaction => transaction.CategoryId == category.CategoryId))
         {
-            return CategoryResult.Fail("Cannot change category type because it already has transactions.");
+            return CategoryResult.Fail("Không thể đổi loại danh mục vì danh mục này đã có giao dịch.");
         }
 
         if (CategoryNameExists(dbContext, userId, newType, category.Name, category.CategoryId))
         {
-            return CategoryResult.Fail("Category name already exists for this type.");
+            return CategoryResult.Fail("Tên danh mục đã tồn tại cho loại này.");
         }
 
         category.Type = newType;
         dbContext.SaveChanges();
 
-        return CategoryResult.Ok(category, "Category type updated successfully.");
+        return CategoryResult.Ok(category, "Cập nhật loại danh mục thành công.");
     }
 
     public CategoryResult DeleteCategory(int categoryId)
     {
         if (!applicationState.IsLoggedIn)
         {
-            return CategoryResult.Fail("You must login first.");
+            return CategoryResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         using var dbContext = new AppDbContext();
@@ -178,18 +178,18 @@ public class CategoryService
 
         if (category is null)
         {
-            return CategoryResult.Fail("Category was not found.");
+            return CategoryResult.Fail("Không tìm thấy danh mục.");
         }
 
         if (dbContext.Transactions.Any(transaction => transaction.CategoryId == category.CategoryId))
         {
-            return CategoryResult.Fail("Cannot delete category because it already has transactions.");
+            return CategoryResult.Fail("Không thể xóa danh mục vì danh mục này đã có giao dịch.");
         }
 
         dbContext.Categories.Remove(category);
         dbContext.SaveChanges();
 
-        return CategoryResult.Ok("Category deleted successfully.");
+        return CategoryResult.Ok("Xóa danh mục thành công.");
     }
 
     private static bool CategoryNameExists(
@@ -215,27 +215,27 @@ public class CategoryService
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            return "Category name is required.";
+            return "Vui lòng nhập tên danh mục.";
         }
 
         if (validateType && !TransactionTypes.IsValid(type))
         {
-            return "Category type is invalid.";
+            return "Loại danh mục không hợp lệ.";
         }
 
         if (string.IsNullOrWhiteSpace(iconName))
         {
-            return "Icon name is required.";
+            return "Vui lòng chọn biểu tượng.";
         }
 
         if (string.IsNullOrWhiteSpace(color))
         {
-            return "Color is required.";
+            return "Vui lòng chọn màu sắc.";
         }
 
         if (!color.Trim().StartsWith("#", StringComparison.Ordinal) || color.Trim().Length != 7)
         {
-            return "Color must use format #RRGGBB.";
+            return "Màu sắc phải có định dạng #RRGGBB.";
         }
 
         return null;

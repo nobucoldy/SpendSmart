@@ -86,10 +86,9 @@
                        FontWeight="Black"
                        Foreground="#333333"
                        HorizontalAlignment="Center" />
-            <TextBlock Text="Đăng nhập để quản lý chi tiêu"
-                       Margin="0,6,0,26"
+            <TextBlock Text=""
+                       Margin="0,6,0,20"
                        FontSize="13"
-                       Foreground="#777777"
                        HorizontalAlignment="Center" />
 
             <TextBlock Text="Email"

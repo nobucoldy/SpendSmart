@@ -63,7 +63,7 @@ public class LoginViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"Login failed: {ex.Message}";
+            ErrorMessage = $"Đăng nhập thất bại: {ex.Message}";
         }
     }
 

@@ -77,7 +77,7 @@ public class RegisterViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"Register failed: {ex.Message}";
+            ErrorMessage = $"Đăng ký thất bại: {ex.Message}";
         }
     }
 

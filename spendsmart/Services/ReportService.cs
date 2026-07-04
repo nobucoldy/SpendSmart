@@ -41,7 +41,7 @@ public class ReportService
         return transactions
             .GroupBy(transaction => new
             {
-                CategoryName = transaction.Category?.Name ?? "Unknown",
+                CategoryName = transaction.Category?.Name ?? "Không rõ",
                 IconName = transaction.Category?.IconName ?? string.Empty,
                 Color = transaction.Category?.Color ?? "#666666"
             })

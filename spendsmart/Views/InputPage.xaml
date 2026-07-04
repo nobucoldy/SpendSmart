@@ -172,6 +172,7 @@
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="1"
                              Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}"
+                             MaxLength="255"
                              Height="30"
                              BorderThickness="0"
                              Background="Transparent"
