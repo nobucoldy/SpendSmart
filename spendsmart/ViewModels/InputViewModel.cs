@@ -99,7 +99,7 @@ public class InputViewModel : BaseViewModel
 
     public bool IsCreateMode => !IsEditMode;
 
-    public string PageTitle => IsEditMode ? "Chỉnh sửa khoản thu chi" : string.Empty;
+    public string PageTitle => IsEditMode ? "" : string.Empty;
 
     public string AmountLabel => IsExpenseSelected ? "Tiền chi" : "Tiền thu";
 

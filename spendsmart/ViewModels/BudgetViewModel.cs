@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using spendsmart.Constants;
 using spendsmart.Services;
+using spendsmart.Views;
 
 namespace spendsmart.ViewModels;
 
@@ -155,13 +156,22 @@ public class BudgetViewModel : BaseViewModel
             return;
         }
 
-        var confirm = MessageBox.Show(
-            $"Xóa ngân sách \"{budget.CategoryName}\"?",
-            "Xóa ngân sách",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
+        var activeWindow = Application.Current.Windows
+            .OfType<Window>()
+            .FirstOrDefault(window => window.IsActive);
 
-        if (confirm != MessageBoxResult.Yes)
+        var dialog = new ConfirmDialog(
+            "Xóa ngân sách",
+            $"Bạn có chắc chắn muốn xóa ngân sách \"{budget.CategoryName}\" không?",
+            "Xóa",
+            "Hủy");
+
+        if (activeWindow is not null)
+        {
+            dialog.Owner = activeWindow;
+        }
+
+        if (dialog.ShowDialog() != true)
         {
             return;
         }

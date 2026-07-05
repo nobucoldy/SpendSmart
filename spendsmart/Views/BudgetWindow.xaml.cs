@@ -11,4 +11,9 @@ public partial class BudgetWindow : Window
         InitializeComponent();
         DataContext = new BudgetViewModel(ServiceFactory.CreateBudgetService(), ServiceFactory.CreateCategoryService());
     }
+
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 }

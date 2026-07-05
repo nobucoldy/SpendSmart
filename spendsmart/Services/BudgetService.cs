@@ -20,17 +20,17 @@ public class BudgetService
     {
         if (!applicationState.IsLoggedIn)
         {
-            return BudgetResult.Fail("You must login first.");
+            return BudgetResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         if (month is < 1 or > 12)
         {
-            return BudgetResult.Fail("Month is invalid.");
+            return BudgetResult.Fail("Tháng không hợp lệ.");
         }
 
         if (limitAmount <= 0)
         {
-            return BudgetResult.Fail("Budget limit must be greater than zero.");
+            return BudgetResult.Fail("Hạn mức ngân sách phải lớn hơn 0.");
         }
 
         using var dbContext = new AppDbContext();
@@ -45,7 +45,7 @@ public class BudgetService
 
             if (!categoryExists)
             {
-                return BudgetResult.Fail("Category was not found.");
+                return BudgetResult.Fail("Không tìm thấy danh mục.");
             }
         }
 
@@ -76,14 +76,14 @@ public class BudgetService
 
         dbContext.SaveChanges();
 
-        return BudgetResult.Ok(budget, "Budget saved successfully.");
+        return BudgetResult.Ok(budget, "Đã lưu ngân sách thành công.");
     }
 
     public BudgetResult DeleteBudget(int budgetId)
     {
         if (!applicationState.IsLoggedIn)
         {
-            return BudgetResult.Fail("You must login first.");
+            return BudgetResult.Fail("Bạn cần đăng nhập trước.");
         }
 
         using var dbContext = new AppDbContext();
@@ -94,13 +94,13 @@ public class BudgetService
 
         if (budget is null)
         {
-            return BudgetResult.Fail("Budget was not found.");
+            return BudgetResult.Fail("Không tìm thấy ngân sách.");
         }
 
         dbContext.Budgets.Remove(budget);
         dbContext.SaveChanges();
 
-        return BudgetResult.Ok("Budget deleted successfully.");
+        return BudgetResult.Ok("Đã xóa ngân sách thành công.");
     }
 
     public List<BudgetStatus> GetBudgetStatuses(int year, int month)
