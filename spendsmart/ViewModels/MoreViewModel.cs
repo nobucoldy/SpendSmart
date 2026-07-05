@@ -16,6 +16,7 @@ public class MoreViewModel : BaseViewModel
         this.applicationState = applicationState;
         LogoutCommand = new RelayCommand(Logout);
         ShowAboutCommand = new RelayCommand(ShowAbout);
+        ShowBudgetCommand = new RelayCommand(ShowBudget);
     }
 
     public string FullName => applicationState.CurrentUser?.FullName ?? "Khách";
@@ -25,6 +26,8 @@ public class MoreViewModel : BaseViewModel
     public ICommand LogoutCommand { get; }
 
     public ICommand ShowAboutCommand { get; }
+
+    public ICommand ShowBudgetCommand { get; }
 
     private void Logout()
     {
@@ -61,6 +64,18 @@ public class MoreViewModel : BaseViewModel
             .OfType<Window>()
             .FirstOrDefault(window => window is MainWindow)
             ?.Close();
+    }
+
+    private static void ShowBudget()
+    {
+        var budgetWindow = new BudgetWindow
+        {
+            Owner = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive)
+        };
+
+        budgetWindow.ShowDialog();
     }
 
     private static void ShowAbout()
