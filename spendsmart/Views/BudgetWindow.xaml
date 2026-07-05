@@ -1,0 +1,232 @@
+<Window x:Class="spendsmart.Views.BudgetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:spendsmart.Converters"
+        Title="Ngân sách"
+        Height="720"
+        Width="480"
+        WindowStartupLocation="CenterOwner"
+        Background="White"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <converters:PercentageToGridLengthConverter x:Key="PercentageToGridLengthConverter" />
+        <converters:ZeroCountToVisibilityConverter x:Key="EmptyListVisibilityConverter" />
+
+        <Style x:Key="NavArrowStyle" TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="#555555" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="#159CE4" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#0F8FD4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FieldTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="#DADADA" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="FieldComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="38" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0"
+                   Text="Ngân sách"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Foreground="#333333"
+                   Margin="0,0,0,10" />
+
+        <!-- Month navigator -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Content="‹"
+                    Style="{StaticResource NavArrowStyle}"
+                    Command="{Binding PreviousMonthCommand}" />
+
+            <TextBlock Grid.Column="1"
+                       Text="{Binding MonthText}"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       Foreground="#555555"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+
+            <Button Grid.Column="2"
+                    Content="›"
+                    Style="{StaticResource NavArrowStyle}"
+                    Command="{Binding NextMonthCommand}" />
+        </Grid>
+
+        <!-- Prediction banner -->
+        <Border Grid.Row="2"
+                Background="#EEF8FE"
+                CornerRadius="10"
+                Padding="12,10"
+                Margin="0,0,0,10">
+            <TextBlock Text="{Binding PredictedNextMonthExpenseText}"
+                       FontSize="13"
+                       FontWeight="SemiBold"
+                       Foreground="#159CE4"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <!-- Budget list -->
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Chưa có ngân sách nào cho tháng này."
+                           FontSize="13"
+                           Foreground="#999999"
+                           Margin="4,10"
+                           Visibility="{Binding Budgets.Count, Converter={StaticResource EmptyListVisibilityConverter}, FallbackValue=Collapsed}" />
+
+                <ItemsControl ItemsSource="{Binding Budgets}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#FAFAFA"
+                                    CornerRadius="10"
+                                    Padding="12,10"
+                                    Margin="0,0,0,8">
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding CategoryName}"
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#333333" />
+                                            <TextBlock FontSize="12"
+                                                       Foreground="{Binding StatusColor}"
+                                                       FontWeight="SemiBold"
+                                                       Text="{Binding StatusText}" />
+                                        </StackPanel>
+
+                                        <Button Grid.Column="1"
+                                                Content="✕"
+                                                Width="26"
+                                                Height="26"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="#AAAAAA"
+                                                Cursor="Hand"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}" />
+                                    </Grid>
+
+                                    <!-- Lightweight progress bar built from two star-sized Grid columns -->
+                                    <Grid Height="8" Margin="0,8,0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="{Binding PercentageUsed, Converter={StaticResource PercentageToGridLengthConverter}}" />
+                                            <ColumnDefinition Width="{Binding PercentageUsed, Converter={StaticResource PercentageToGridLengthConverter}, ConverterParameter=Remaining}" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.ColumnSpan="2" Background="#E4E4E4" CornerRadius="4" />
+                                        <Border Grid.Column="0" Background="{Binding StatusColor}" CornerRadius="4" />
+                                    </Grid>
+
+                                    <TextBlock FontSize="12" Foreground="#777777">
+                                        <Run Text="Đã chi: " />
+                                        <Run Text="{Binding SpentAmount, StringFormat={}{0:N0} đ}" FontWeight="SemiBold" />
+                                        <Run Text="  /  Hạn mức: " />
+                                        <Run Text="{Binding LimitAmount, StringFormat={}{0:N0} đ}" FontWeight="SemiBold" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Add / edit budget form -->
+        <Border Grid.Row="4"
+                Background="White"
+                BorderBrush="#DADADA"
+                BorderThickness="0,1,0,0"
+                Padding="0,12,0,0"
+                Margin="0,10,0,0">
+            <StackPanel>
+                <TextBlock Text="Đặt hạn mức chi tiêu"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#555555"
+                           Margin="0,0,0,6" />
+
+                <ComboBox Style="{StaticResource FieldComboBoxStyle}"
+                          ItemsSource="{Binding CategoryOptions}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding SelectedCategoryOption}"
+                          Margin="0,0,0,8" />
+
+                <TextBox Style="{StaticResource FieldTextBoxStyle}"
+                         Text="{Binding LimitAmountText, UpdateSourceTrigger=PropertyChanged}"
+                         Tag="Hạn mức (đ)"
+                         Margin="0,0,0,8" />
+
+                <TextBlock Text="{Binding StatusMessage}"
+                           FontSize="12"
+                           Foreground="#F0533F"
+                           Margin="0,0,0,8"
+                           TextWrapping="Wrap" />
+
+                <Button Content="Lưu ngân sách"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
