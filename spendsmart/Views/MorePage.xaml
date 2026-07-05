@@ -78,6 +78,20 @@
                 </Grid>
             </Border>
 
+            <Button Command="{Binding ShowBudgetCommand}"
+                    Style="{StaticResource MenuButtonStyle}">
+                <DockPanel>
+                    <TextBlock Text="🎯  Ngân sách"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#555" />
+                    <TextBlock Text="›"
+                               FontSize="20"
+                               Foreground="#AAA"
+                               HorizontalAlignment="Right" />
+                </DockPanel>
+            </Button>
+
             <Button Command="{Binding ShowAboutCommand}"
                     Style="{StaticResource MenuButtonStyle}">
                 <DockPanel>
