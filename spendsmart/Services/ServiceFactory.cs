@@ -26,6 +26,11 @@ public static class ServiceFactory
         return new ReportService(CreateTransactionService());
     }
 
+        public static BudgetService CreateBudgetService()
+    {
+        return new BudgetService(ApplicationState);
+    }
+
     public static MoreViewModel CreateMoreViewModel()
     {
         return new MoreViewModel(CreateAuthService(), ApplicationState);
