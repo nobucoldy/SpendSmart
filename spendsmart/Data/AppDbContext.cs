@@ -23,6 +23,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Transaction> Transactions => Set<Transaction>();
 
+    public DbSet<Budget> Budgets => Set<Budget>();
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -36,6 +38,7 @@ public class AppDbContext : DbContext
         ConfigureUser(modelBuilder);
         ConfigureCategory(modelBuilder);
         ConfigureTransaction(modelBuilder);
+        ConfigureBudget(modelBuilder);
     }
 
     private static void ConfigureUser(ModelBuilder modelBuilder)
@@ -130,6 +133,39 @@ public class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasIndex(transaction => new { transaction.UserId, transaction.Date });
+        });
+    }
+        private static void ConfigureBudget(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Budget>(entity =>
+        {
+            entity.HasKey(budget => budget.BudgetId);
+
+            entity.Property(budget => budget.Year)
+                .IsRequired();
+
+            entity.Property(budget => budget.Month)
+                .IsRequired();
+
+            entity.Property(budget => budget.LimitAmount)
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
+
+            entity.Property(budget => budget.CreatedAt)
+                .IsRequired();
+
+            entity.HasOne(budget => budget.User)
+                .WithMany()
+                .HasForeignKey(budget => budget.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(budget => budget.Category)
+                .WithMany()
+                .HasForeignKey(budget => budget.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasIndex(budget => new { budget.UserId, budget.CategoryId, budget.Year, budget.Month })
+                .IsUnique();
         });
     }
 }
