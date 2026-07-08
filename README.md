@@ -25,9 +25,9 @@
 |:--------:|:-------------:|:------------:|
 | ![Danh mục](imgs/category1.png) | ![Thêm danh mục](imgs/category2.png) | ![Sửa danh mục](imgs/category3.png) |
 
-| Báo cáo | Ngân sách | Khác | Giới thiệu |
+| Báo cáo | Khác | Ngân sách | Giới thiệu |
 |:--------:|:---------:|:----:|:----------:|
-| ![Báo cáo](imgs/report.png) | ![Ngân sách](imgs/budget.png) | ![Khác](imgs/other.png) | ![Giới thiệu](imgs/about.png) |
+| ![Báo cáo](imgs/report.png) | ![Khác](imgs/other.png) | ![Ngân sách](imgs/budget.png) | ![Giới thiệu](imgs/about.png) |
 
 
 ## Công nghệ sử dụng
