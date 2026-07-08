@@ -17,7 +17,7 @@
 
 | Đăng nhập | Đăng ký | Trang chủ |
 |:---:|:---:|:---:|
-| ![Login](docs/images/login.png) | ![Home](docs/images/home.png) |
+| ![Login](docs/images/login.png) | ![SignUp](docs/images/home.png) | ![Home](docs/images/home.png) |
 
 | Nhập giao dịch | Lịch sử | Danh mục |
 |:---:|:---:|:---:|
