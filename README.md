@@ -13,19 +13,21 @@
 
 ## Ảnh giao diện
 
-<!-- Chèn ảnh giao diện ứng dụng vào đây -->
-
 | Đăng nhập | Đăng ký | Trang chủ |
-|:---:|:---:|:---:|
-| ![Login](docs/images/login.png) | ![SignUp](docs/images/home.png) | ![Home](docs/images/home.png) |
+|:---------:|:--------:|:---------:|
+| ![Đăng nhập](imgs/login.png) | ![Đăng ký](imgs/signup.png) | ![Trang chủ](imgs/home.png) |
 
-| Nhập giao dịch | Lịch sử | Danh mục |
-|:---:|:---:|:---:|
-| ![Input](docs/images/input.png) | ![Budget](docs/images/budget.png) | ![Report](docs/images/report.png) |
+| Nhập giao dịch | Sửa giao dịch | Lịch sử |
+|:--------------:|:-------------:|:-------:|
+| ![Nhập giao dịch](imgs/input.png) | ![Sửa giao dịch](imgs/edit.png) | ![Lịch sử](imgs/history.png) |
 
-| Báo cáo | Ngân sách | Khác |
-|:---:|:---:|:---:|
-| ![Input](docs/images/input.png) | ![Budget](docs/images/budget.png) | ![Report](docs/images/report.png) |
+| Danh mục | Thêm danh mục | Sửa danh mục |
+|:--------:|:-------------:|:------------:|
+| ![Danh mục](imgs/category1.png) | ![Thêm danh mục](imgs/category2.png) | ![Sửa danh mục](imgs/category3.png) |
+
+| Báo cáo | Ngân sách | Khác | Giới thiệu |
+|:--------:|:---------:|:----:|:----------:|
+| ![Báo cáo](imgs/report.png) | ![Ngân sách](imgs/budget.png) | ![Khác](imgs/other.png) | ![Giới thiệu](imgs/about.png) |
 
 
 ## Công nghệ sử dụng
