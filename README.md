@@ -14,9 +14,9 @@
 
 | STT | Họ và tên | Mã sinh viên | Tỉ lệ đóng góp |
 | --- | --- | --- | --- |
-| 1 | Nguyễn Quế Bắc | 23010574 | 40% |
-| 2 | Nguyễn Thị Quỳnh Anh | 23010147 | 35% |
-| 3 | Lê Việt Anh | 22010188 | 25% |
+| 1 | Nguyễn Quế Bắc | 23010574 | 42% |
+| 2 | Nguyễn Thị Quỳnh Anh | 23010147 | 37% |
+| 3 | Lê Việt Anh | 22010188 | 21% |
 
 # SpendSmart
 
