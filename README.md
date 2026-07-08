@@ -1,3 +1,23 @@
+# HỌC PHẦN: CÔNG NGHỆ .NET
+
+## Đề tài
+
+**XÂY DỰNG APP QUẢN LÝ CHI TIÊU**
+
+**Lớp tín chỉ:** Công nghệ .Net-1-3-25(N01)
+
+**Giảng viên hướng dẫn:** Phạm Văn Hà
+
+## Nhóm thực hiện
+
+**Nhóm 01**
+
+| STT | Họ và tên | Mã sinh viên | Tỉ lệ đóng góp |
+| --- | --- | --- | --- |
+| 1 | Nguyễn Quế Bắc | 23010574 | 40% |
+| 2 | Nguyễn Thị Quỳnh Anh | 23010147 | 35% |
+| 3 | Lê Việt Anh | 22010188 | 25% |
+
 # SpendSmart
 
 Ứng dụng desktop **quản lý thu chi cá nhân**, viết bằng **WPF (.NET 10)** theo kiến trúc **MVVM**, lưu dữ liệu bằng **Entity Framework Core (Code First)** trên **SQL Server LocalDB**.
